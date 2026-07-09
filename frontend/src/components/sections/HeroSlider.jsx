@@ -78,11 +78,12 @@ export default function HeroSlider() {
   const slide = slides[current]
 
   return (
-    <section
-      id="home"
-      className="relative w-full overflow-hidden select-none"
-      style={{ height: 'clamp(520px, 88vh, 860px)' }}
-    >
+    <>
+      <section
+        id="home"
+        className="relative w-full overflow-hidden select-none"
+        style={{ height: 'clamp(520px, 88vh, 860px)' }}
+      >
       {/* Background slides */}
       {slides.map((s, i) => (
         <div key={i} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${i === current ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
@@ -169,24 +170,23 @@ export default function HeroSlider() {
           {String(current + 1).padStart(2,'0')} / {String(slides.length).padStart(2,'0')}
         </span>
       </div>
+    </section>
 
-      {/* Stats bar */}
-      <div className="absolute bottom-0 left-0 right-0 z-40">
-        <div className="bg-[#0d1420]/90 backdrop-blur-md border-t border-white/8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-white/8">
-              {stats.map(({ num, label }, i) => (
-                <div key={label}
-                  className={`text-center py-3.5 sm:py-5 px-2 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
-                  style={{ transitionDelay:`${200 + i * 60}ms` }}>
-                  <Counter targetValue={num} duration={2000} />
-                  <div className="text-white/38 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
-                </div>
-              ))}
+    {/* Stats bar below banner */}
+    <div className="bg-[#0d1420]/90 backdrop-blur-md border-t border-white/8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x-0 sm:divide-x divide-white/8">
+          {stats.map(({ num, label }, i) => (
+            <div key={label}
+              className={`text-center py-3.5 sm:py-5 px-2 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'} ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+              style={{ transitionDelay:`${200 + i * 60}ms` }}>
+              <Counter targetValue={num} duration={2000} />
+              <div className="text-white/38 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
+    </>
   )
 }

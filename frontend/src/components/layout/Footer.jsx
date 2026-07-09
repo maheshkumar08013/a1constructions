@@ -1,128 +1,105 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail, Globe, Facebook, Linkedin, Instagram, Youtube, ArrowRight } from 'lucide-react'
+import { MapPin, Phone, Mail, Globe, Facebook, Linkedin, Instagram, Youtube } from 'lucide-react'
 import logo from '../../assets/logo.png'
 
-// X Logo component
-function XLogo() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.209-6.807-5.974 6.807H2.882l7.732-8.835L1.227 2.25h6.836l4.713 6.231 5.448-6.231zM17.15 19.75h1.826L6.883 4.15H4.95l12.2 15.6z"/>
-    </svg>
-  )
-}
-
-const quickLinks = [
-  { label: 'Home',     to: '/' },
-  { label: 'About Us', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Projects', to: '/projects' },
-  { label: 'Contact',  to: '/contact' },
+const pageLinks = [
+  { label: 'Overview', href: '#overview' },
+  { label: 'Workers', href: '#workers' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Home', to: '/' },
+  { label: 'Contact', to: '/contact' },
 ]
 
-const services = [
-  'Building Construction', 'Government Infrastructure',
-  'Healthcare Facilities', 'Educational Campuses',
-  'Industrial Construction', 'Project Management',
-]
-
-const socials = [
-  // { Icon: Facebook,  href: '#', label: 'Facebook' },
-  { Icon: XLogo,   href: '#', label: 'X' },
-  // { Icon: Linkedin,  href: '#', label: 'LinkedIn' },
-  // { Icon: Instagram, href: '#', label: 'Instagram' },
-  // { Icon: Youtube,   href: '#', label: 'YouTube' },
+const socialLinks = [
+  { Icon: Instagram, label: 'Instagram', href: '' },
+  { Icon: Linkedin, label: 'LinkedIn', href: '' },
+  { Icon: Facebook, label: 'Facebook', href: '' },
+  { Icon: Youtube, label: 'YouTube', href: '' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-[#cdcdcd]">
-      {/* Main grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 py-14 lg:py-16 border-b border-white/6">
+    <footer className="bg-[#cdcdcd] text-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
 
-          {/* Brand col */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <img src={logo} alt="A1 Construction" className="h-12 w-auto mb-5 " />
-            <p className="text-black text-sm leading-relaxed mb-6">
-              Bengaluru-based infrastructure company established in 2012. Specialists in government, healthcare, educational, and corporate construction across Karnataka and South India.
+          <div className="space-y-6">
+            <img src={logo} alt="A1 Construction" className="h-20 w-auto" />
+            <p className="text-sm leading-relaxed text-black/80 max-w-sm">
+              A1 Construction delivers durable infrastructure across Bangalore and South India. Explore our pages, learn about our teams, and find the right service for your next project.
             </p>
-            <div className="flex items-center gap-6 mb-6">
-              {[['12+', 'Years'], ['100+', 'Projects'], ['500+', 'Team']].map(([n, l]) => (
-                <div key={l}>
-                  <div className="font-montserrat font-black text-black text-lg leading-none">{n}</div>
-                  <div className="text-black/25 text-[9px] uppercase tracking-widest mt-0.5">{l}</div>
-                </div>
-              ))}
+            <div>
+              <h4 className="text-[10px] font-bold uppercase tracking-[3px] mb-4">Quick Links</h4>
+              <ul className="space-y-3 text-sm">
+                {pageLinks.map(({ label, to, href }) => (
+                  <li key={label}>
+                    {to ? (
+                      <Link to={to} className="hover:text-black/90 transition-colors">{label}</Link>
+                    ) : (
+                      <a href={href} className="hover:text-black/90 transition-colors">{label}</a>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex gap-2">
-              {socials.map(({ Icon, href, label }) => (
-                <a key={label} href={href} aria-label={label}
-                  className="w-8 h-8 border border-black rounded flex items-center justify-center text-black hover:bg-blue-brand hover:border-blue-brand hover:text-white transition-all duration-200">
-                  <Icon size={13} />
+          </div>
+
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-bold uppercase tracking-[3px] mb-4">Social Media</h4>
+            <p className="text-sm text-black/80 max-w-sm">Follow us on social media for project updates, company news, and industry highlights.</p>
+            <div className="flex flex-wrap gap-3">
+              {socialLinks.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="inline-flex items-center justify-center w-10 h-10 border border-black rounded-full text-black hover:bg-black hover:text-white transition-colors"
+                >
+                  <Icon size={18} />
                 </a>
               ))}
             </div>
+            {/* <div className="mt-4 space-y-2 text-sm text-black/70">
+              <p className="font-medium">Connect with us:</p>
+              <p>Instagram | LinkedIn | Facebook | YouTube</p>
+            </div> */}
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h4 className="text-black text-[10px] font-bold uppercase tracking-[3px] mb-5 font-inter">Quick Links</h4>
-            <ul className="space-y-2.5">
-              {quickLinks.map(({ label, to }) => (
-                <li key={to}>
-                  <Link to={to} className="text-black text-sm hover:text-black flex items-center gap-2 transition-colors group">
-                    <ArrowRight size={11} className="text-blue-brand opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-black text-[10px] font-bold uppercase tracking-[3px] mb-5 font-inter">Our Services</h4>
-            <ul className="space-y-2.5">
-              {services.map(s => (
-                <li key={s}>
-                  <Link to="/services" className="text-black text-sm hover:text-black flex items-center gap-2 transition-colors group">
-                    <ArrowRight size={11} className="text-blue-brand opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
-                    {s}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="text-black text-[10px] font-bold uppercase tracking-[3px] mb-5 font-inter">Contact Us</h4>
-            <div className="space-y-4">
-              {[
-                { Icon: MapPin, text: '#352/32, 1st Floor, 3rd Block, Nagarabhavi 2nd Stage, Bangalore – 560072' },
-                { Icon: Phone, text: '+91 9845370474', href: 'tel:+919845370474' },
-                { Icon: Mail,  text: 'info@a1construction.co.in', href: 'mailto:info@a1construction.co.in' },
-                { Icon: Globe, text: 'www.a1construction.co.in' },
-              ].map(({ Icon, text, href }) => (
-                <div key={text} className="flex gap-3 items-start">
-                  <Icon size={13} className="text-blue-brand mt-0.5 flex-shrink-0" />
-                  {href
-                    ? <a href={href} className="text-black text-sm hover:text-black transition-colors leading-relaxed">{text}</a>
-                    : <p className="text-black text-sm leading-relaxed">{text}</p>
-                  }
-                </div>
-              ))}
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-bold uppercase tracking-[3px] mb-4">Contact Us</h4>
+            <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
+              <iframe
+                title="A1 Construction Google Map"
+                src="https://maps.google.com/maps?q=Bengaluru&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                className="w-full h-48"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="space-y-3 text-sm text-black/80">
+              <div className="flex items-start gap-3">
+                <MapPin size={16} className="mt-0.5 text-blue-brand" />
+                <p>#352/32, 1st Floor, 3rd Block, Nagarabhavi 2nd Stage, Bangalore – 560072</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone size={16} className="mt-0.5 text-blue-brand" />
+                <a href="tel:+919845370474" className="hover:text-black/90 transition-colors">+91 98453 70474</a>
+              </div>
+              <div className="flex items-start gap-3">
+                <Mail size={16} className="mt-0.5 text-blue-brand" />
+                <a href="mailto:info@a1construction.co.in" className="hover:text-black/90 transition-colors">info@a1construction.co.in</a>
+              </div>
+              <div className="flex items-start gap-3">
+                <Globe size={16} className="mt-0.5 text-blue-brand" />
+                <p>www.a1construction.co.in</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between py-5 gap-2">
-          <p className="text-black/18 text-xs">© {new Date().getFullYear()} A1 Construction. All Rights Reserved.</p>
-          {/* <p className="text-black/12 text-xs">
-            Designed & Developed by <span className="text-blue-brand/40">Sunsys Technologies</span>
-          </p> */}
+        <div className="mt-12 border-t border-black/10 pt-6 text-sm text-black/50">
+          © {new Date().getFullYear()} A1 Construction. All Rights Reserved.
         </div>
       </div>
     </footer>

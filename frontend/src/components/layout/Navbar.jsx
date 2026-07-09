@@ -124,8 +124,8 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Fixed navbar spacer */}
-      <div className="h-[69px] lg:h-[77px]" />
+      {/* Fixed navbar spacer matches nav height: 3px accent + 100/120px header row */}
+      <div className="h-[103px] lg:h-[123px]" />
     </>
   )
 }

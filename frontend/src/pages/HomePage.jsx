@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import HeroSlider from '../components/sections/HeroSlider'
 import TaglineStrip from '../components/sections/TaglineStrip'
+import { ContactSection } from '../components/sections/OtherSections'
 import { SectionLabel, SectionTitle, SectionRule, SectionDesc, AnimatedSection } from '../components/ui/SectionHeader'
 import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
@@ -223,10 +224,70 @@ function ClientsStrip() {
   )
 }
 
+/* ── Testimonials ───────────────────────────── */
+const testimonials = [
+  {
+    quote: 'A1 Construction delivered our hospital project ahead of schedule without compromise on quality. Their professionalism was evident throughout.',
+    initials: 'RK',
+    name: 'R. Kumar',
+    role: 'Project Director, BBMP',
+  },
+  {
+    quote: 'Their experience with government tender processes and compliance made the programme seamless. A reliable partner we continue to engage.',
+    initials: 'PS',
+    name: 'P. Sharma',
+    role: 'Chief Engineer, PWD Karnataka',
+  },
+  {
+    quote: 'The railway station project was complex and time-critical. A1 Construction\'s site management and stakeholder coordination was exceptional.',
+    initials: 'MN',
+    name: 'M. Nair',
+    role: 'DRM, South Western Railway',
+  },
+]
+
+function TestimonialsSection() {
+  return (
+    <section className="py-20 lg:py-24 bg-[#111325] border-t border-b border-blue-brand">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection className="text-center mb-12 lg:mb-14">
+          <p className="text-blue-brand text-xs font-bold uppercase tracking-[4px] mb-4 font-inter">Testimonials</p>
+          <h2 className="font-montserrat font-black text-white text-3xl sm:text-4xl lg:text-5xl leading-tight">
+            What Our Clients Say
+          </h2>
+          <div className="w-11 h-[3px] bg-blue-brand rounded-full mx-auto mt-5" />
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
+          {testimonials.map((item) => (
+            <AnimatedSection key={item.name}>
+              <div className="h-full rounded-xl border border-white/8 bg-white/[0.03] px-7 py-8">
+                <div className="text-blue-brand/40 text-4xl leading-none mb-5">"</div>
+                <p className="text-white/68 text-[15px] leading-8 italic min-h-[150px]">
+                  {item.quote}
+                </p>
+                <div className="border-t border-white/8 mt-7 pt-4 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-brand flex items-center justify-center text-white text-sm font-bold font-inter">
+                    {item.initials}
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold text-sm">{item.name}</div>
+                    <div className="text-white/28 text-sm">{item.role}</div>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ── CTA Banner ─────────────────────────────── */
 function CTABanner() {
   return (
-    <section className="py-20 bg-navy relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden" style={{ background:'linear-gradient(135deg, #1da1f2 0%, #1565c0 100%)' }}>
       <div className="absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(29,161,242,1) 1px, transparent 0)',
@@ -234,18 +295,18 @@ function CTABanner() {
         }} />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <AnimatedSection>
-          <p className="text-blue-brand text-xs font-bold uppercase tracking-[3px] mb-4 font-inter">Start Your Project</p>
+          <p className="text-white/80 text-xs font-bold uppercase tracking-[3px] mb-4 font-inter">Start Your Project</p>
           <h2 className="font-montserrat font-black text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5 max-w-3xl mx-auto">
             Ready to Build Something That Lasts?
           </h2>
-          <p className="text-white/45 text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-white/80 text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
             Share your project requirements and get a detailed proposal from our engineering team.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link to="/contact" className="inline-flex items-center gap-2 bg-blue-brand hover:bg-blue-dark text-white px-8 py-4 rounded font-bold font-inter text-sm transition-colors shadow-lg shadow-blue-brand/20">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-navy hover:bg-white hover:text-black text-white px-8 py-4 rounded font-bold font-inter text-sm transition-colors shadow-lg shadow-blue-brand/20">
               Request a Proposal <ArrowRight size={14} />
             </Link>
-            <a href="tel:+919845370474" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/50 hover:bg-white/5 text-white px-8 py-4 rounded font-bold font-inter text-sm transition-all">
+            <a href="tel:+919845370474" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/50 hover:bg-white hover:text-black text-white px-8 py-4 rounded font-bold font-inter text-sm transition-all">
               +91 98453 70474
             </a>
           </div>
@@ -300,7 +361,9 @@ export default function HomePage() {
         <WhyStrip />
         <ProjectsTeaser />
         <ClientsStrip />
+        <TestimonialsSection />
         <CTABanner />
+        <ContactSection />
       </main>
       <Footer />
     </div>

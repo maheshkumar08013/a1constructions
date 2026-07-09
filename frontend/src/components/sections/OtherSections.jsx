@@ -102,35 +102,36 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
           {/* Form */}
-          <AnimatedSection>
+          <AnimatedSection className="lg:col-span-3">
             <SectionLabel>Get in Touch</SectionLabel>
             <SectionTitle>Send Us an Enquiry</SectionTitle>
             <SectionRule />
-            <p className="text-gray-400 text-sm mb-8">Whether you're a government department, architect, or corporate client — reach out to discuss your project requirements.</p>
+            <p className="text-gray-400 text-sm mb-8">Whether you're a government department, architect, or corporate client, share your project requirements and we’ll get back to you quickly.</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input {...register('name', { required: true })} placeholder="Your Name" className="w-full px-4 py-3 border border-gray-200 rounded text-sm focus:outline-none focus:border-blue-brand transition-colors" />
-                <input {...register('email', { required: true })} type="email" placeholder="Email Address" className="w-full px-4 py-3 border border-gray-200 rounded text-sm focus:outline-none focus:border-blue-brand transition-colors" />
+                <input {...register('name', { required: true })} placeholder="Your Name" className="w-full px-4 py-3.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-blue-brand focus:ring-1 focus:ring-blue-brand/20 transition-all" />
+                <input {...register('email', { required: true })} type="email" placeholder="Email Address" className="w-full px-4 py-3.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-blue-brand focus:ring-1 focus:ring-blue-brand/20 transition-all" />
               </div>
-              <input {...register('organisation')} placeholder="Organisation / Company" className="w-full px-4 py-3 border border-gray-200 rounded text-sm focus:outline-none focus:border-blue-brand transition-colors" />
-              <input {...register('phone')} placeholder="Phone Number" className="w-full px-4 py-3 border border-gray-200 rounded text-sm focus:outline-none focus:border-blue-brand transition-colors" />
-              <select {...register('type')} className="w-full px-4 py-3 border border-gray-200 rounded text-sm text-gray-500 focus:outline-none focus:border-blue-brand transition-colors bg-white">
+              <input {...register('organisation')} placeholder="Organisation / Company" className="w-full px-4 py-3.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-blue-brand focus:ring-1 focus:ring-blue-brand/20 transition-all" />
+              <input {...register('phone')} placeholder="Phone Number" className="w-full px-4 py-3.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-blue-brand focus:ring-1 focus:ring-blue-brand/20 transition-all" />
+              <select {...register('type')} className="w-full px-4 py-3.5 border border-gray-200 rounded-md text-sm text-gray-500 focus:outline-none focus:border-blue-brand focus:ring-1 focus:ring-blue-brand/20 transition-all bg-white">
                 <option value="">Project Type</option>
                 <option>Government / Public Sector</option>
                 <option>Healthcare</option>
                 <option>Education</option>
                 <option>Commercial</option>
                 <option>Industrial</option>
+                <option>Railway / Infrastructure</option>
+                <option>Project Management (PMC)</option>
                 <option>Other</option>
               </select>
-              <textarea {...register('message')} rows={4} placeholder="Project description & requirements" className="w-full px-4 py-3 border border-gray-200 rounded text-sm focus:outline-none focus:border-blue-brand transition-colors resize-none" />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-brand text-white py-3.5 rounded font-semibold text-sm font-inter hover:bg-blue-dark transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full bg-blue-brand text-white py-4 rounded-md font-semibold text-sm font-inter hover:bg-blue-dark transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Sending...' : 'Send Enquiry'}
               </button>
@@ -138,37 +139,34 @@ export function ContactSection() {
           </AnimatedSection>
 
           {/* Info */}
-          <AnimatedSection className="delay-150">
-            <div className="bg-light rounded-xl p-6 mb-4">
-              <h3 className="font-poppins font-semibold text-navy text-sm mb-5">Contact Information</h3>
+          <AnimatedSection className="delay-150 lg:col-span-2">
+            <div className="bg-light rounded-xl p-7 border border-gray-100 mb-4">
               {[
                 { Icon: MapPin, label: 'Registered Office', text: '#352/32, 1st Floor, 3rd Block, Nagarabhavi 2nd Stage, Bangalore – 560072, Karnataka' },
                 { Icon: Phone, label: 'Phone', text: '+91 9845370474' },
                 { Icon: Mail, label: 'Email', text: 'info@a1construction.co.in' },
                 { Icon: Globe, label: 'Website', text: 'www.a1construction.co.in' },
               ].map(({ Icon, label, text }) => (
-                <div key={label} className="flex gap-3 mb-4 last:mb-0">
-                  <Icon size={15} className="text-blue-brand flex-shrink-0 mt-1" />
+                <div key={label} className="flex gap-3 mb-5 last:mb-0">
+                  <Icon size={16} className="text-blue-brand flex-shrink-0 mt-1" />
                   <div>
-                    <div className="font-semibold text-navy text-xs mb-0.5">{label}</div>
+                    <div className="font-semibold text-navy text-sm mb-0.5">{label}</div>
                     <div className="text-gray-500 text-sm leading-relaxed">{text}</div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Map placeholder */}
-            <div className="bg-navy rounded-xl p-6 text-center">
-              <div className="text-4xl mb-3">📍</div>
-              <p className="text-white font-semibold text-sm">Nagarabhavi 2nd Stage</p>
-              <p className="text-white/40 text-xs mt-1">Bangalore – 560072, Karnataka</p>
+            <div className="bg-navy rounded-xl px-6 py-10 sm:px-8 sm:py-12 text-center">
+              <div className="text-4xl mb-4">📍</div>
+              <p className="text-white/55 text-sm leading-relaxed">Nagarabhavi 2nd Stage, Bangalore – 560072</p>
               <a
                 href="https://maps.google.com/?q=Nagarabhavi+2nd+Stage+Bangalore"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-4 bg-blue-brand text-white px-5 py-2 rounded text-xs font-semibold hover:bg-blue-dark transition-colors"
+                className="inline-block mt-5 text-blue-brand text-sm font-semibold hover:text-white transition-colors"
               >
-                Open in Google Maps →
+                Open in Google Maps
               </a>
             </div>
           </AnimatedSection>

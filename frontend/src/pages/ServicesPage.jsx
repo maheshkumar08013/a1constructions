@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
@@ -90,6 +90,39 @@ export default function ServicesPage() {
     retry:1
   })
   const list = data?.length ? data.map((s,i)=>({...defaultServices[i],...s})) : defaultServices
+  const isSelected = (service) => selected?.id === service.id || selected?.name === service.name
+  const getRowEndIndex = (selectedIndex, columns) => Math.min(list.length - 1, Math.ceil((selectedIndex + 1) / columns) * columns - 1)
+  const renderSelectedDetail = (service, visibilityClass) => (
+    <div className={`col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 ${visibilityClass}`}>
+      <div className="bg-light rounded-2xl overflow-hidden border border-gray-200 grid grid-cols-1 lg:grid-cols-2">
+        {service.image && (
+          <div className="h-56 lg:h-auto">
+            <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
+          </div>
+        )}
+        <div className="p-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl">{service.icon || '🏗'}</span>
+            <h3 className="font-montserrat font-bold text-navy text-xl">{service.name}</h3>
+          </div>
+          <p className="text-gray-500 text-sm leading-relaxed mb-5">{service.desc}</p>
+          {service.details && (
+            <ul className="space-y-2 mb-6">
+              {service.details.map(d => (
+                <li key={d} className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <CheckCircle2 size={14} className="text-blue-brand flex-shrink-0" />
+                  {d}
+                </li>
+              ))}
+            </ul>
+          )}
+          <Link to="/contact" className="inline-flex items-center gap-2 bg-blue-brand text-white px-6 py-3 rounded text-sm font-bold hover:bg-blue-dark transition-colors">
+            Enquire About This Service <ArrowRight size={13} />
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-white">
@@ -114,54 +147,32 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {list.map((s, i) => (
-              <AnimatedSection key={s.name || i}>
-                <button
-                  onClick={() => setSelected(selected?.id === s.id || selected?.name === s.name ? null : s)}
-                  className={`w-full text-left group border rounded-xl p-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden ${
-                    (selected?.id === s.id || selected?.name === s.name)
-                      ? 'border-blue-brand bg-blue-brand/4 shadow-lg -translate-y-1'
-                      : 'border-gray-200 bg-white'
-                  }`}
+              <Fragment key={s.id || s.name || i}>
+                <AnimatedSection
+                  className={i === 4 ? 'col-span-full sm:col-span-2 lg:col-span-1 max-w-[420px] mx-auto xl:max-w-none' : ''}
                 >
-                  <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-blue-brand origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                  <div className="w-12 h-12 bg-blue-brand/8 rounded-xl flex items-center justify-center text-2xl mb-4">{s.icon || '🏗'}</div>
-                  <h3 className="font-poppins font-semibold text-navy text-sm mb-2">{s.name}</h3>
-                  <p className="text-gray-400 text-[12px] leading-relaxed">{s.desc}</p>
-                </button>
-              </AnimatedSection>
+                  <button
+                    onClick={() => setSelected(isSelected(s) ? null : s)}
+                    className={`w-full text-left group border rounded-xl p-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden ${
+                      isSelected(s)
+                        ? 'border-blue-brand bg-blue-brand/4 shadow-lg -translate-y-1'
+                        : 'border-gray-200 bg-white'
+                    }`}
+                  >
+                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-blue-brand origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                    <div className="w-12 h-12 bg-blue-brand/8 rounded-xl flex items-center justify-center text-2xl mb-4">{s.icon || '🏗'}</div>
+                    <h3 className="font-poppins font-semibold text-navy text-sm mb-2">{s.name}</h3>
+                    <p className="text-gray-400 text-[12px] leading-relaxed">{s.desc}</p>
+                  </button>
+                </AnimatedSection>
+
+                {selected && getRowEndIndex(list.findIndex(item => isSelected(item)), 1) === i && renderSelectedDetail(selected, 'sm:hidden')}
+                {selected && getRowEndIndex(list.findIndex(item => isSelected(item)), 2) === i && renderSelectedDetail(selected, 'hidden sm:block lg:hidden')}
+                {selected && getRowEndIndex(list.findIndex(item => isSelected(item)), 3) === i && renderSelectedDetail(selected, 'hidden lg:block xl:hidden')}
+                {selected && getRowEndIndex(list.findIndex(item => isSelected(item)), 4) === i && renderSelectedDetail(selected, 'hidden xl:block')}
+              </Fragment>
             ))}
           </div>
-
-          {/* Expanded service detail */}
-          {selected && (
-            <div className="mt-8 bg-light rounded-2xl overflow-hidden border border-gray-200 grid grid-cols-1 lg:grid-cols-2">
-              {selected.image && (
-                <div className="h-56 lg:h-auto">
-                  <img src={selected.image} alt={selected.name} className="w-full h-full object-cover" />
-                </div>
-              )}
-              <div className="p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl">{selected.icon || '🏗'}</span>
-                  <h3 className="font-montserrat font-bold text-navy text-xl">{selected.name}</h3>
-                </div>
-                <p className="text-gray-500 text-sm leading-relaxed mb-5">{selected.desc}</p>
-                {selected.details && (
-                  <ul className="space-y-2 mb-6">
-                    {selected.details.map(d => (
-                      <li key={d} className="flex items-center gap-2.5 text-sm text-gray-500">
-                        <CheckCircle2 size={14} className="text-blue-brand flex-shrink-0" />
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <Link to="/contact" className="inline-flex items-center gap-2 bg-blue-brand text-white px-6 py-3 rounded text-sm font-bold hover:bg-blue-dark transition-colors">
-                  Enquire About This Service <ArrowRight size={13} />
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
