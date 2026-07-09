@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../utils/api'
+import { resolveMediaUrl } from '../../utils/media'
 
 export default function MediaChooser({ open, onClose, onSelect }) {
   const [media, setMedia] = useState([])
@@ -25,7 +26,7 @@ export default function MediaChooser({ open, onClose, onSelect }) {
         <div className="grid grid-cols-4 gap-3 max-h-96 overflow-auto">
           {media.map(m => (
             <div key={m.id} className="border p-2 flex flex-col items-center">
-              <img src={m.url} alt={m.filename || ''} className="h-20 object-cover mb-2" />
+              <img src={resolveMediaUrl(m.url)} alt={m.filename || ''} className="h-20 object-cover mb-2" />
               <button className="text-sm bg-blue-500 text-white px-2 py-1 rounded" onClick={() => { onSelect(m); onClose(); }}>Select</button>
             </div>
           ))}

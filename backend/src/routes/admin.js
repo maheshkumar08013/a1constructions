@@ -9,42 +9,59 @@ router.use(auth)
 // ── Generic CRUD factory ──────────────────────────────
 function crudRoutes(table, fields) {
   const r = require('express').Router()
+  let cachedColumns = null
+  const quoteIdentifier = (value) => `\`${String(value).replace(/`/g, '``')}\``
+
+  async function getAvailableFields() {
+    if (cachedColumns) return cachedColumns
+    const [rows] = await pool.query(`SHOW COLUMNS FROM ${quoteIdentifier(table)}`)
+    cachedColumns = new Set(rows.map(row => row.Field))
+    return cachedColumns
+  }
 
   r.get('/', async (req, res) => {
     try {
-      const [rows] = await pool.query(`SELECT * FROM ${table} ORDER BY sort_order ASC, created_at DESC`)
+      const [rows] = await pool.query(`SELECT * FROM ${quoteIdentifier(table)} ORDER BY sort_order ASC, created_at DESC`)
       res.json(rows)
     } catch (e) { res.status(500).json({ error: e.message }) }
   })
 
   r.post('/', async (req, res) => {
     try {
-      const vals = fields.reduce((acc, f) => { acc[f] = req.body[f] ?? null; return acc }, {})
-      const cols = Object.keys(vals).join(', ')
+      const availableFields = await getAvailableFields()
+      const vals = fields.reduce((acc, f) => {
+        if (availableFields.has(f)) acc[f] = req.body[f] ?? null
+        return acc
+      }, {})
+      const cols = Object.keys(vals).map(quoteIdentifier).join(', ')
       const placeholders = Object.keys(vals).map(() => '?').join(', ')
       const [result] = await pool.query(
-        `INSERT INTO ${table} (${cols}) VALUES (${placeholders})`,
+        `INSERT INTO ${quoteIdentifier(table)} (${cols}) VALUES (${placeholders})`,
         Object.values(vals)
       )
-      const [row] = await pool.query(`SELECT * FROM ${table} WHERE id=?`, [result.insertId])
+      const [row] = await pool.query(`SELECT * FROM ${quoteIdentifier(table)} WHERE id=?`, [result.insertId])
       res.status(201).json(row[0])
     } catch (e) { res.status(500).json({ error: e.message }) }
   })
 
   r.put('/:id', async (req, res) => {
     try {
-      const vals = fields.reduce((acc, f) => { if (req.body[f] !== undefined) acc[f] = req.body[f]; return acc }, {})
-      const setClauses = Object.keys(vals).map(k => `${k}=?`).join(', ')
+      const availableFields = await getAvailableFields()
+      const vals = fields.reduce((acc, f) => {
+        if (availableFields.has(f) && req.body[f] !== undefined) acc[f] = req.body[f]
+        return acc
+      }, {})
+      const setClauses = Object.keys(vals).map(k => `${quoteIdentifier(k)}=?`).join(', ')
       if (!setClauses) return res.status(400).json({ error: 'No fields to update' })
-      await pool.query(`UPDATE ${table} SET ${setClauses} WHERE id=?`, [...Object.values(vals), req.params.id])
-      const [row] = await pool.query(`SELECT * FROM ${table} WHERE id=?`, [req.params.id])
+      await pool.query(`UPDATE ${quoteIdentifier(table)} SET ${setClauses} WHERE id=?`, [...Object.values(vals), req.params.id])
+      const [row] = await pool.query(`SELECT * FROM ${quoteIdentifier(table)} WHERE id=?`, [req.params.id])
       res.json(row[0])
     } catch (e) { res.status(500).json({ error: e.message }) }
   })
 
   r.delete('/:id', async (req, res) => {
     try {
-      await pool.query(`DELETE FROM ${table} WHERE id=?`, [req.params.id])
+      await pool.query(`DELETE FROM ${quoteIdentifier(table)} WHERE id=?`, [req.params.id])
       res.json({ success: true })
     } catch (e) { res.status(500).json({ error: e.message }) }
   })
@@ -54,7 +71,7 @@ function crudRoutes(table, fields) {
 
 // Mount CRUD routers
 router.use('/slides', crudRoutes('slides', ['eyebrow','title','subtitle','image','sort_order','active']))
-router.use('/projects', crudRoutes('projects', ['name','category','location','desc','image','color','featured','active','sort_order']))
+router.use('/projects', crudRoutes('projects', ['name','category','location','desc','content','image','gallery','year','color','featured','active','sort_order']))
 router.use('/services', crudRoutes('services', ['icon','name','desc','sort_order','active']))
 router.use('/cms', cmsRoutes)
 

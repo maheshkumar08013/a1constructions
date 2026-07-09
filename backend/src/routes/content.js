@@ -22,6 +22,18 @@ router.get('/projects', async (req, res) => {
   } catch { res.status(500).json({ error: 'Server error' }) }
 })
 
+// GET /api/content/projects/:id
+router.get('/projects/:id', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      'SELECT * FROM projects WHERE id=? AND active=1 LIMIT 1',
+      [req.params.id]
+    )
+    if (!rows.length) return res.status(404).json({ error: 'Project not found' })
+    res.json(rows[0])
+  } catch { res.status(500).json({ error: 'Server error' }) }
+})
+
 // GET /api/content/services
 router.get('/services', async (req, res) => {
   try {

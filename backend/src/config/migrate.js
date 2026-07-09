@@ -141,6 +141,18 @@ async function migrate() {
 
   console.log('✅ Tables created')
 
+  const ensureColumn = async (table, column, definition) => {
+    const [rows] = await conn.query(`SHOW COLUMNS FROM \`${table}\` LIKE ?`, [column])
+    if (!rows.length) {
+      await conn.query(`ALTER TABLE \`${table}\` ADD COLUMN \`${column}\` ${definition}`)
+      console.log(`✅ Added ${table}.${column}`)
+    }
+  }
+
+  await ensureColumn('projects', 'year', 'VARCHAR(4) NULL AFTER image')
+  await ensureColumn('projects', 'content', 'LONGTEXT NULL AFTER `desc`')
+  await ensureColumn('projects', 'gallery', 'LONGTEXT NULL AFTER content')
+
   // Seed admin
   const [existing] = await conn.query('SELECT id FROM users WHERE email = ?', ['admin@a1construction.co.in'])
   if (!existing.length) {
@@ -180,13 +192,13 @@ async function migrate() {
   // Seed projects
   const [projs] = await conn.query('SELECT COUNT(*) as c FROM projects')
   if (!projs[0].c) {
-    await conn.query(`INSERT INTO projects (name, category, location, \`desc\`, image, sort_order) VALUES
-      ('Assam Bhawan','Government','Bengaluru, Karnataka','State guest house and diplomatic facility with premium government-grade finishing.','https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=600&q=80',1),
-      ('BBMP Multi Speciality Hospital','Healthcare','Bengaluru, Karnataka','Large-scale multi-speciality hospital serving thousands of Bangalore citizens.','https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80',2),
-      ('Dr Puneeth Rajkumar Hospital','Healthcare','Karnataka','Dedicated healthcare facility honouring the legacy of Kannada icon Dr Puneeth Rajkumar.','https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',3),
-      ('Yeshwanthpur Railway Station','Railway','Bengaluru, Karnataka','Infrastructure works for South Western Railway — flagship railway development project.','https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',4),
-      ('Government Degree College','Education','Karnataka','Complete college complex with classrooms, labs, and student amenities.','https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80',5),
-      ('BGS Ground','Urban Development','Bengaluru, Karnataka','Sports and civic ground development for urban recreation and community use.','https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80',6)`)
+    await conn.query(`INSERT INTO projects (name, category, location, \`desc\`, image, year, sort_order) VALUES
+      ('Assam Bhawan','Government','Bengaluru, Karnataka','State guest house and diplomatic facility with premium government-grade finishing.','https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=600&q=80','2022',1),
+      ('BBMP Multi Speciality Hospital','Healthcare','Bengaluru, Karnataka','Large-scale multi-speciality hospital serving thousands of Bangalore citizens.','https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80','2023',2),
+      ('Dr Puneeth Rajkumar Hospital','Healthcare','Karnataka','Dedicated healthcare facility honouring the legacy of Kannada icon Dr Puneeth Rajkumar.','https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80','2023',3),
+      ('Yeshwanthpur Railway Station','Railway','Bengaluru, Karnataka','Infrastructure works for South Western Railway — flagship railway development project.','https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80','2021',4),
+      ('Government Degree College','Education','Karnataka','Complete college complex with classrooms, labs, and student amenities.','https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80','2020',5),
+      ('BGS Ground','Urban Development','Bengaluru, Karnataka','Sports and civic ground development for urban recreation and community use.','https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80','2022',6)`)
     console.log('✅ Projects seeded')
   }
 

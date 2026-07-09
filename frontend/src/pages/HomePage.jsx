@@ -9,6 +9,7 @@ import { SectionLabel, SectionTitle, SectionRule, SectionDesc, AnimatedSection }
 import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
 import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react'
+import { resolveMediaUrl } from '../utils/media'
 import swrLogo from '../assets/images/clientlogo/south western railways.jpg'
 import bbmpLogo from '../assets/images/clientlogo/Bruhat_Bengaluru_Mahanagara_Palike_logo.jpg'
 import pwdLogo from '../assets/images/clientlogo/pwd-karnataka-logo.jpg'
@@ -137,18 +138,9 @@ function ServicesTeaser() {
 }
 
 /* ── Projects Teaser ────────────────────────── */
-const defaultProjects = [
-  { id:1, name:'Assam Bhawan', category:'Government', location:'Bengaluru', image:'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=600&q=80' },
-  { id:2, name:'BBMP Multi Speciality Hospital', category:'Healthcare', location:'Bengaluru', image:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80' },
-  { id:3, name:'Yeshwanthpur Railway Station', category:'Railway', location:'Bengaluru', image:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80' },
-  { id:4, name:'Government Degree College', category:'Education', location:'Karnataka', image:'https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80' },
-  { id:5, name:'Dr Puneeth Rajkumar Hospital', category:'Healthcare', location:'Karnataka', image:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
-  { id:6, name:'BGS Ground', category:'Urban Development', location:'Bengaluru', image:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80' },
-]
-
 function ProjectsTeaser() {
-  const { data } = useQuery({ queryKey:['projects'], queryFn:()=>api.get('/content/projects').then(r=>r.data), placeholderData:defaultProjects, retry:1 })
-  const list = (data?.length ? data : defaultProjects).slice(0, 6)
+  const { data: projects = [] } = useQuery({ queryKey:['projects'], queryFn:()=>api.get('/content/projects').then(r=>r.data), retry:1 })
+  const list = projects.slice(0, 6)
 
   return (
     <section className="py-20 lg:py-28 bg-white">
@@ -160,24 +152,28 @@ function ProjectsTeaser() {
           <SectionDesc center>Signature projects delivered for government bodies, public institutions, and corporate clients.</SectionDesc>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-          {list.map((p, i) => (
-            <AnimatedSection key={p.id || i}>
-              <div className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300">
-                <div className="relative h-48 overflow-hidden">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                  <span className="absolute top-3 left-3 bg-blue-brand text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm">
-                    {p.category}
-                  </span>
+        {list.length === 0 ? (
+          <div className="text-center py-14 text-gray-400 mb-10">Projects will appear here once they are added from the backend.</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {list.map((p, i) => (
+              <AnimatedSection key={p.id || i}>
+                <div className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <img src={resolveMediaUrl(p.image)} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <span className="absolute top-3 left-3 bg-blue-brand text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm">
+                      {p.category}
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-poppins font-bold text-navy text-sm mb-1">{p.name}</h3>
+                    <p className="text-gray-400 text-xs">📍 {p.location}</p>
+                  </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-poppins font-bold text-navy text-sm mb-1">{p.name}</h3>
-                  <p className="text-gray-400 text-xs">📍 {p.location}</p>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        )}
 
         <div className="text-center">
           <Link to="/projects" className="inline-flex items-center gap-2 bg-blue-brand text-white px-8 py-3.5 rounded text-sm font-bold font-inter hover:bg-blue-dark transition-colors shadow-md">
@@ -262,8 +258,8 @@ function TestimonialsSection() {
           {testimonials.map((item) => (
             <AnimatedSection key={item.name}>
               <div className="h-full rounded-xl border border-white/8 bg-white/[0.03] px-7 py-8">
-                <div className="text-blue-brand/40 text-4xl leading-none mb-5">"</div>
-                <p className="text-white/68 text-[15px] leading-8 italic min-h-[150px]">
+                <div className="text-blue-brand/60 text-4xl leading-none mb-5">"</div>
+                <p className="text-white/90 text-[15px] leading-8 italic min-h-[150px]">
                   {item.quote}
                 </p>
                 <div className="border-t border-white/8 mt-7 pt-4 flex items-center gap-3">
@@ -272,7 +268,7 @@ function TestimonialsSection() {
                   </div>
                   <div>
                     <div className="text-white font-semibold text-sm">{item.name}</div>
-                    <div className="text-white/28 text-sm">{item.role}</div>
+                    <div className="text-white/60 text-sm">{item.role}</div>
                   </div>
                 </div>
               </div>

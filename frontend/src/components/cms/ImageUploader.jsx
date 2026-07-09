@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../utils/api'
 import toast from 'react-hot-toast'
+import { resolveMediaUrl } from '../../utils/media'
 
 export default function ImageUploader({ name, setValue, value }) {
   const [file, setFile] = useState(null)
@@ -38,9 +39,9 @@ export default function ImageUploader({ name, setValue, value }) {
       {preview && (
         <div className="mt-3">
           {preview.match(/\.(jpeg|jpg|gif|png|svg|webp)(\?|$)/i) ? (
-            <img src={preview} alt="preview" className="max-h-40 rounded-md border" />
+            <img src={resolveMediaUrl(preview)} alt="preview" className="max-h-40 rounded-md border" />
           ) : (
-            <a href={preview} target="_blank" rel="noreferrer" className="text-sm text-blue-brand">{preview}</a>
+            <a href={resolveMediaUrl(preview)} target="_blank" rel="noreferrer" className="text-sm text-blue-brand">{preview}</a>
           )}
         </div>
       )}

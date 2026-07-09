@@ -115,11 +115,12 @@ function Dashboard() {
 }
 
 // ── Generic List Manager ─────────────────────────────
-function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initialValues }) {
+function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initialValues, modalWidth = 'max-w-lg' }) {
   const qc = useQueryClient()
   const [editing, setEditing] = useState(null)
   const { register, handleSubmit, reset, setValue, getValues } = useForm()
   const [mediaChooserOpen, setMediaChooserOpen] = useState(false)
+  const [mediaTargetField, setMediaTargetField] = useState(null)
 
   const { data: items = [], isLoading } = useQuery({
     queryKey: [queryKey],
@@ -135,7 +136,7 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
       toast.success(editing?.id ? 'Updated!' : 'Created!')
       setEditing(null); reset()
     },
-    onError: () => toast.error('Save failed')
+    onError: (error) => toast.error(error?.response?.data?.error || 'Save failed')
   })
 
   const deleteMutation = useMutation({
@@ -200,20 +201,21 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
 
       {/* Modal */}
       {editing !== null && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+        <div className="fixed inset-0 bg-black/50 z-50 overflow-y-auto p-4 sm:p-6">
+          <div className={`bg-white rounded-2xl w-full ${modalWidth} shadow-2xl mx-auto my-4 max-h-[calc(100vh-2rem)] flex flex-col`}>
+            <div className="flex items-center justify-between p-6 border-b border-gray-100 flex-shrink-0">
               <h2 className="font-poppins font-semibold text-navy">{editing.id ? 'Edit' : 'New'} {title.slice(0,-1)}</h2>
               <button onClick={() => { setEditing(null); reset() }} className="text-gray-400 hover:text-gray-600">
                 <X size={20} />
               </button>
             </div>
-            <form onSubmit={handleSubmit(d => saveMutation.mutate(d))} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit(d => saveMutation.mutate(d))} className="p-6 space-y-4 overflow-y-auto">
+              <div className={title === 'Projects' ? 'grid grid-cols-1 lg:grid-cols-2 gap-4' : 'space-y-4'}>
               {fields.map(f => (
                 <div key={f.name}>
                   <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">{f.label}</label>
                   {f.type === 'textarea' ? (
-                    <textarea {...register(f.name)} rows={3} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-brand text-gray-700 resize-none" />
+                    <textarea {...register(f.name)} rows={f.name === 'content' ? 8 : 4} className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-brand text-gray-700 resize-none" />
                   ) : f.type === 'wysiwyg' || f.name === 'content' ? (
                     <div>
                       <input type="hidden" {...register(f.name)} />
@@ -228,12 +230,28 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
                       <input type="hidden" {...register(f.name)} />
                       <TermSelector name={f.name} value={editing ? (editing[f.name] || []) : []} setValue={setValue} />
                     </div>
+                  ) : f.type === 'gallery' ? (
+                    <div>
+                      <textarea
+                        {...register(f.name)}
+                        rows={5}
+                        placeholder={f.placeholder || 'One image URL per line'}
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-brand text-gray-700 resize-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => { setMediaTargetField(f.name); setMediaChooserOpen(true) }}
+                        className="mt-2 text-sm text-gray-600 underline"
+                      >
+                        Add from media library
+                      </button>
+                    </div>
                   ) : f.type === 'file' || f.name === 'image' || f.name === 'featured_image' || (f.name && f.name.toLowerCase().includes('image')) ? (
                     <div>
                       <input type="hidden" {...register(f.name)} />
                       <div className="flex items-center gap-3">
                         <ImageUploader name={f.name} setValue={setValue} value={editing ? (editing[f.name] || '') : ''} />
-                        <button type="button" onClick={() => setMediaChooserOpen(true)} className="text-sm text-gray-600 underline">Choose from library</button>
+                        <button type="button" onClick={() => { setMediaTargetField(f.name); setMediaChooserOpen(true) }} className="text-sm text-gray-600 underline">Choose from library</button>
                       </div>
                     </div>
                   ) : (
@@ -241,6 +259,7 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
                   )}
                 </div>
               ))}
+              </div>
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => { setEditing(null); reset() }} className="flex-1 border border-gray-200 text-gray-500 py-2.5 rounded-lg text-sm hover:bg-gray-50 transition-colors">Cancel</button>
                 <button type="submit" disabled={saveMutation.isPending} className="flex-1 flex items-center justify-center gap-2 bg-blue-brand text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50">
@@ -248,12 +267,16 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
                 </button>
               </div>
             </form>
-            <MediaChooser open={mediaChooserOpen} onClose={() => setMediaChooserOpen(false)} onSelect={m => {
-              // set selected media url into current image field (assumes last image field)
-              // If you want to target a specific field, enhance UI to choose which field to fill.
-              // Here we find the first image field in fields
-              const imgField = fields.find(f => f.name === 'image' || f.name === 'featured_image' || (f.name && f.name.toLowerCase().includes('image')))
-              if (imgField) setValue(imgField.name, m.url)
+            <MediaChooser open={mediaChooserOpen} onClose={() => { setMediaChooserOpen(false); setMediaTargetField(null) }} onSelect={m => {
+              if (!mediaTargetField) return
+              const currentValue = getValues(mediaTargetField) || ''
+              const targetField = fields.find(f => f.name === mediaTargetField)
+              if (targetField?.type === 'gallery') {
+                const nextValue = currentValue ? `${currentValue}\n${m.url}` : m.url
+                setValue(mediaTargetField, nextValue, { shouldDirty: true })
+                return
+              }
+              setValue(mediaTargetField, m.url, { shouldDirty: true })
             }} />
           </div>
         </div>
@@ -401,12 +424,18 @@ export default function AdminPage() {
                 queryKey="admin-projects"
                 endpoint="/admin/projects"
                 createLabel="New Project"
+                modalWidth="max-w-5xl"
                 fields={[
                   { name: 'name', label: 'Project Name' },
                   { name: 'category', label: 'Category', type: 'select', options: ['Government','Healthcare','Education','Railway','Industrial','Urban Development','Commercial'] },
                   { name: 'location', label: 'Location' },
                   { name: 'desc', label: 'Description', type: 'textarea' },
+                  { name: 'content', label: 'Project Content', type: 'textarea' },
                   { name: 'image', label: 'Image URL' },
+                  { name: 'gallery', label: 'Gallery Images', type: 'gallery', placeholder: 'One image URL per line' },
+                  { name: 'year', label: 'Year' },
+                  { name: 'sort_order', label: 'Order', type: 'number' },
+                  { name: 'active', label: 'Visible', type: 'select', options: [1, 0] },
                 ]}
               />
             } />

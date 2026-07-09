@@ -3,14 +3,36 @@ import { useParams, Link } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import PageHero from '../components/ui/PageHero'
-import { MapPin, ArrowRight, X } from 'lucide-react'
-import { defaultProjects, projectGalleryMap } from '../data/projectsData'
+import { ArrowRight, X } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import api from '../utils/api'
+import { parseGallery, resolveMediaUrl } from '../utils/media'
 
 export default function ProjectDetailPage() {
   const [selectedImage, setSelectedImage] = useState(null)
   const { id } = useParams()
-  const projectId = Number(id)
-  const project = defaultProjects.find(p => p.id === projectId)
+  const { data: project, isLoading } = useQuery({
+    queryKey: ['project', id],
+    queryFn: () => api.get(`/content/projects/${id}`).then(r => r.data),
+    retry: 1,
+  })
+
+  const heroImage = resolveMediaUrl(project?.image)
+  const galleryImages = project
+    ? Array.from(new Set([heroImage, ...parseGallery(project.gallery)].filter(Boolean)))
+    : []
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center text-gray-400">
+          Loading project...
+        </div>
+        <Footer />
+      </div>
+    )
+  }
 
   if (!project) {
     return (
@@ -36,15 +58,17 @@ export default function ProjectDetailPage() {
         title={project.name}
         subtitle={project.desc}
         breadcrumbs={[{ label:'Projects', path:'/projects' }, { label: project.name }]}
-        bgImage={project.image}
+        bgImage={heroImage}
       />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10">
           <section>
-            <div className="rounded-3xl overflow-hidden shadow-lg mb-8">
-              <img src={project.image} alt={project.name} className="w-full h-[420px] object-cover" />
-            </div>
+            {heroImage && (
+              <div className="rounded-3xl overflow-hidden shadow-lg mb-8">
+                <img src={heroImage} alt={project.name} className="w-full h-[420px] object-cover" />
+              </div>
+            )}
 
             <div className="space-y-6">
               <div>
@@ -52,28 +76,32 @@ export default function ProjectDetailPage() {
                 <p className="text-gray-500 leading-relaxed">{project.desc}</p>
               </div>
 
-              {projectGalleryMap[projectId] && (
+              {project.content && (
+                <div>
+                  <h3 className="text-lg font-semibold text-navy mb-4">Project Content</h3>
+                  <div className="text-gray-500 leading-relaxed whitespace-pre-line">{project.content}</div>
+                </div>
+              )}
+
+              {galleryImages.length > 0 && (
                 <div>
                   <h3 className="text-lg font-semibold text-navy mb-4">Gallery</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {projectGalleryMap[projectId].map((imageName, idx) => {
-                      const imageUrl = `${project.image.includes('http') ? project.image.split('/').slice(0, -1).join('/') : project.image}/${imageName}`
-                      return (
-                        <button
-                          type="button"
-                          key={idx}
-                          onClick={() => setSelectedImage(imageUrl)}
-                          className="w-full h-64 overflow-hidden rounded-3xl border border-gray-100"
-                        >
-                          <img
-                            src={imageUrl}
-                            alt={`${project.name} gallery ${idx + 1}`}
-                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
-                            loading="lazy"
-                          />
-                        </button>
-                      )
-                    })}
+                    {galleryImages.map((imageUrl, idx) => (
+                      <button
+                        type="button"
+                        key={`${imageUrl}-${idx}`}
+                        onClick={() => setSelectedImage(imageUrl)}
+                        className="w-full h-64 overflow-hidden rounded-3xl border border-gray-100 bg-gray-50"
+                      >
+                        <img
+                          src={imageUrl}
+                          alt={`${project.name} gallery ${idx + 1}`}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
+                          loading="lazy"
+                        />
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
