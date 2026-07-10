@@ -15,9 +15,11 @@ export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
   const { pathname } = useLocation()
+  const solidNav = scrolled || menuOpen
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
+    fn()
     window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
@@ -30,14 +32,18 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? 'shadow-[0_2px_20px_rgba(0,0,0,0.09)]' : 'shadow-[0_1px_0_rgba(0,0,0,0.06)]'
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
+        solidNav
+          ? 'bg-white/95 shadow-[0_2px_20px_rgba(0,0,0,0.09)] backdrop-blur-md'
+          : 'bg-transparent shadow-none'
       }`}>
         {/* Top gradient accent bar */}
-        <div className="h-[3px] w-full bg-gradient-to-r from-navy via-blue-brand to-navy" />
+        <div className={`h-[3px] w-full bg-gradient-to-r from-navy via-blue-brand to-navy transition-opacity duration-300 ${
+          solidNav ? 'opacity-100' : 'opacity-0'
+        }`} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[100px] lg:h-[120px]">
+          <div className="flex items-center justify-between h-[80px] lg:h-[95px]">
 
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
@@ -52,12 +58,14 @@ export default function Navbar() {
                     to={to}
                     className={`relative text-[13.5px] font-semibold font-inter px-3.5 py-2 rounded inline-block transition-colors duration-200 ${
                       isActive(to)
-                        ? 'text-blue-brand'
-                        : 'text-navy hover:text-blue-brand'
+                        ? solidNav ? 'text-blue-brand' : 'text-white'
+                        : solidNav ? 'text-navy hover:text-blue-brand' : 'text-white/85 hover:text-white'
                     }`}
                   >
                     {label}
-                    <span className={`absolute bottom-0.5 left-3.5 right-3.5 h-[2px] bg-blue-brand rounded-full transition-transform duration-200 origin-left ${
+                    <span className={`absolute bottom-0.5 left-3.5 right-3.5 h-[2px] rounded-full transition-transform duration-200 origin-left ${
+                      solidNav ? 'bg-blue-brand' : 'bg-white'
+                    } ${
                       isActive(to) ? 'scale-x-100' : 'scale-x-0'
                     }`} />
                   </Link>
@@ -67,11 +75,13 @@ export default function Navbar() {
 
             {/* Right CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <a href="tel:+919845370474" className="flex items-center gap-1.5 text-navy/65 text-[13px] font-medium hover:text-blue-brand transition-colors">
+              <a href="tel:+919845370474" className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors ${
+                solidNav ? 'text-navy/65 hover:text-blue-brand' : 'text-white/75 hover:text-white'
+              }`}>
                 <Phone size={13} />
                 +91 98453 70474
               </a>
-              <div className="w-px h-4 bg-gray-200" />
+              <div className={`w-px h-4 ${solidNav ? 'bg-gray-200' : 'bg-white/20'}`} />
               {/* <Link
                 to="/contact"
                 className="bg-blue-brand hover:bg-blue-dark text-white px-5 py-2.5 rounded text-[13px] font-bold font-inter transition-colors shadow-sm"
@@ -82,7 +92,9 @@ export default function Navbar() {
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden p-2 rounded-md text-navy hover:bg-gray-100 transition-colors"
+              className={`lg:hidden p-2 rounded-md transition-colors ${
+                solidNav ? 'text-navy hover:bg-gray-100' : 'text-white hover:bg-white/10'
+              }`}
               onClick={() => setMenuOpen(v => !v)}
               aria-label="Toggle menu"
             >
@@ -123,9 +135,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-
-      {/* Fixed navbar spacer matches nav height: 3px accent + 100/120px header row */}
-      <div className="h-[103px] lg:h-[123px]" />
     </>
   )
 }

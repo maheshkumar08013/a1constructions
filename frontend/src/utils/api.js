@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 const getBaseURL = () => {
-  // In development, use the Vite proxy
   if (import.meta.env.DEV) {
     return '/api'
   }
-  // In production, point directly to the backend server
-  return 'https://a1.sunsysweb.co.in/api'
+  return import.meta.env.VITE_API_BASE_URL || 'https://a1.sunsysweb.co.in/api'
 }
 
 const api = axios.create({ baseURL: getBaseURL() })
+
+export const getApiBaseURL = getBaseURL
 
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('token')

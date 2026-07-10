@@ -33,7 +33,7 @@ export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage })
         </svg>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 pb-20 sm:pb-24">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[132px] sm:pt-[148px] lg:pt-[170px] pb-20 sm:pb-24">
         {/* Breadcrumb */}
         {breadcrumbs.length > 0 && (
           <nav className="flex items-center gap-1.5 mb-5 flex-wrap">

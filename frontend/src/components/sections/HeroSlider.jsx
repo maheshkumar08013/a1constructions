@@ -106,7 +106,7 @@ export default function HeroSlider() {
       <div className="absolute bottom-0 left-0 right-0 z-20 h-32 bg-gradient-to-t from-[#0d1420]/95 to-transparent pointer-events-none" />
 
       {/* Text content */}
-      <div className="absolute inset-0 z-30 flex flex-col justify-center pb-24 sm:pb-28">
+      <div className="absolute inset-0 z-30 flex flex-col justify-center pt-[118px] sm:pt-[132px] lg:pt-[150px] pb-24 sm:pb-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 w-full">
           <div className="max-w-[520px] md:max-w-[560px] lg:max-w-[600px]">
 
@@ -124,7 +124,7 @@ export default function HeroSlider() {
 
             <div className={`w-12 h-[3px] bg-[#1DA1F2] mb-5 rounded-full transition-all duration-600 delay-100 origin-left ${textVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-            <p className={`text-white/62 text-[14px] sm:text-[16px] leading-[1.75] mb-8 max-w-[440px] transition-all duration-600 delay-150 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className={`text-white/80 text-[14px] sm:text-[16px] leading-[1.75] mb-8 max-w-[440px] transition-all duration-600 delay-150 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               {slide.subtitle}
             </p>
 
@@ -181,7 +181,7 @@ export default function HeroSlider() {
               className={`text-center py-3.5 sm:py-5 px-2 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'} ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
               style={{ transitionDelay:`${200 + i * 60}ms` }}>
               <Counter targetValue={num} duration={2000} />
-              <div className="text-white/38 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
+              <div className="text-white/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
             </div>
           ))}
         </div>

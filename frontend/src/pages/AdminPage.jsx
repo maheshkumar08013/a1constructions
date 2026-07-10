@@ -9,6 +9,7 @@ import TermSelector from '../components/cms/TermSelector'
 import MediaChooser from '../components/cms/MediaChooser'
 import toast from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
+import { parseGallery, resolveMediaUrl } from '../utils/media'
 import logo from '../assets/logo.png'
 import {
   LayoutDashboard, Image, Briefcase, Settings, MessageSquare,
@@ -114,11 +115,96 @@ function Dashboard() {
   )
 }
 
+function GalleryUploader({ name, setValue, value, onChooseFromLibrary }) {
+  const [uploading, setUploading] = useState(false)
+  const images = parseGallery(value)
+
+  const updateImages = (nextImages) => {
+    setValue(name, JSON.stringify(nextImages), { shouldDirty: true })
+  }
+
+  const uploadFiles = async (event) => {
+    const files = Array.from(event.target.files || [])
+    if (!files.length) return
+
+    setUploading(true)
+
+    try {
+      const uploadedUrls = []
+
+      for (const file of files) {
+        const fd = new FormData()
+        fd.append('file', file)
+        const { data } = await api.post('/admin/cms/media', fd, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        uploadedUrls.push(data.url || `/uploads/${data.filename}`)
+      }
+
+      updateImages([...images, ...uploadedUrls])
+      toast.success(`${uploadedUrls.length} image${uploadedUrls.length > 1 ? 's' : ''} uploaded`)
+      event.target.value = ''
+    } catch (error) {
+      console.error(error)
+      toast.error('Gallery upload failed')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const removeImage = (imageUrl) => {
+    updateImages(images.filter((item) => item !== imageUrl))
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center gap-3">
+        <input type="file" accept="image/*" multiple onChange={uploadFiles} className="text-sm" />
+        <button
+          type="button"
+          onClick={onChooseFromLibrary}
+          className="text-sm text-gray-600 underline"
+        >
+          Add from media library
+        </button>
+      </div>
+      {uploading && <div className="text-xs text-gray-400">Uploading gallery images...</div>}
+      {images.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {images.map((imageUrl, index) => (
+            <div key={`${imageUrl}-${index}`} className="rounded-xl border border-gray-100 overflow-hidden bg-white">
+              <img
+                src={resolveMediaUrl(imageUrl)}
+                alt={`Gallery ${index + 1}`}
+                className="w-full h-28 object-cover"
+              />
+              <div className="p-2">
+                <button
+                  type="button"
+                  onClick={() => removeImage(imageUrl)}
+                  className="text-xs text-red-500"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {images.length === 0 && (
+        <div className="rounded-lg border border-dashed border-gray-200 px-4 py-6 text-sm text-gray-400">
+          Upload multiple project gallery images or add them from the media library.
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── Generic List Manager ─────────────────────────────
 function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initialValues, modalWidth = 'max-w-lg' }) {
   const qc = useQueryClient()
   const [editing, setEditing] = useState(null)
-  const { register, handleSubmit, reset, setValue, getValues } = useForm()
+  const { register, handleSubmit, reset, setValue, getValues, watch } = useForm()
   const [mediaChooserOpen, setMediaChooserOpen] = useState(false)
   const [mediaTargetField, setMediaTargetField] = useState(null)
 
@@ -232,25 +318,19 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
                     </div>
                   ) : f.type === 'gallery' ? (
                     <div>
-                      <textarea
-                        {...register(f.name)}
-                        rows={5}
-                        placeholder={f.placeholder || 'One image URL per line'}
-                        className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-blue-brand text-gray-700 resize-none"
+                      <input type="hidden" {...register(f.name)} />
+                      <GalleryUploader
+                        name={f.name}
+                        setValue={setValue}
+                        value={watch(f.name) || ''}
+                        onChooseFromLibrary={() => { setMediaTargetField(f.name); setMediaChooserOpen(true) }}
                       />
-                      <button
-                        type="button"
-                        onClick={() => { setMediaTargetField(f.name); setMediaChooserOpen(true) }}
-                        className="mt-2 text-sm text-gray-600 underline"
-                      >
-                        Add from media library
-                      </button>
                     </div>
                   ) : f.type === 'file' || f.name === 'image' || f.name === 'featured_image' || (f.name && f.name.toLowerCase().includes('image')) ? (
                     <div>
                       <input type="hidden" {...register(f.name)} />
                       <div className="flex items-center gap-3">
-                        <ImageUploader name={f.name} setValue={setValue} value={editing ? (editing[f.name] || '') : ''} />
+                        <ImageUploader name={f.name} setValue={setValue} value={watch(f.name) || ''} />
                         <button type="button" onClick={() => { setMediaTargetField(f.name); setMediaChooserOpen(true) }} className="text-sm text-gray-600 underline">Choose from library</button>
                       </div>
                     </div>
@@ -272,7 +352,8 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
               const currentValue = getValues(mediaTargetField) || ''
               const targetField = fields.find(f => f.name === mediaTargetField)
               if (targetField?.type === 'gallery') {
-                const nextValue = currentValue ? `${currentValue}\n${m.url}` : m.url
+                const galleryItems = parseGallery(currentValue)
+                const nextValue = JSON.stringify(Array.from(new Set([...galleryItems, m.url])))
                 setValue(mediaTargetField, nextValue, { shouldDirty: true })
                 return
               }
@@ -432,7 +513,7 @@ export default function AdminPage() {
                   { name: 'desc', label: 'Description', type: 'textarea' },
                   { name: 'content', label: 'Project Content', type: 'textarea' },
                   { name: 'image', label: 'Image URL' },
-                  { name: 'gallery', label: 'Gallery Images', type: 'gallery', placeholder: 'One image URL per line' },
+                  { name: 'gallery', label: 'Gallery Images', type: 'gallery' },
                   { name: 'year', label: 'Year' },
                   { name: 'sort_order', label: 'Order', type: 'number' },
                   { name: 'active', label: 'Visible', type: 'select', options: [1, 0] },

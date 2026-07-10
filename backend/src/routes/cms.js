@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs').promises
 const pool = require('../config/db')
 
-const uploadDir = path.join(__dirname, '../uploads')
+const uploadDir = path.join(__dirname, '../../uploads')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
@@ -255,7 +255,7 @@ router.get('/media', async (req, res) => {
 router.post('/media', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'File upload required' })
-    const url = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
+    const url = `/uploads/${req.file.filename}`
     const { alt_text, caption, type = req.file.mimetype, size = req.file.size, uploaded_by = null } = req.body
     const [result] = await pool.query(
       `INSERT INTO media (filename, url, alt_text, caption, type, size, uploaded_by)

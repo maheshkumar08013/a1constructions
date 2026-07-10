@@ -1,16 +1,37 @@
-const uploadBase = import.meta.env.DEV ? 'http://localhost:5000' : 'https://a1.sunsysweb.co.in'
+import { getApiBaseURL } from './api'
+
+function getUploadBase() {
+  const apiBase = getApiBaseURL()
+
+  if (import.meta.env.DEV) {
+    return import.meta.env.VITE_UPLOAD_BASE_URL || 'http://localhost:5000'
+  }
+
+  if (apiBase.startsWith('/')) {
+    if (typeof window === 'undefined') return ''
+    return window.location.origin
+  }
+
+  try {
+    return new URL(apiBase).origin
+  } catch {
+    if (typeof window === 'undefined') return ''
+    return window.location.origin
+  }
+}
 
 export function resolveMediaUrl(value) {
   if (!value) return ''
   const trimmed = String(value).trim()
+  const uploadBase = getUploadBase()
   if (!trimmed) return ''
   if (trimmed.startsWith('data:') || trimmed.startsWith('blob:')) {
     return trimmed
   }
   if (/^(https?:)?\/\//i.test(trimmed)) {
     try {
-      const url = new URL(trimmed, uploadBase)
-      if (!import.meta.env.DEV && ['localhost', '127.0.0.1'].includes(url.hostname)) {
+      const url = new URL(trimmed, uploadBase || window.location.origin)
+      if (['localhost', '127.0.0.1'].includes(url.hostname)) {
         return `${uploadBase}${url.pathname}${url.search}`
       }
       return url.toString()
