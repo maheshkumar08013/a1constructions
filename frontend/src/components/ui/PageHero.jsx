@@ -8,12 +8,12 @@ import { ChevronRight } from 'lucide-react'
  */
 export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage }) {
   return (
-    <section className="relative bg-navy overflow-hidden">
+    <section className="relative bg-white/40 overflow-hidden">
       {/* Background image */}
       {bgImage && (
         <>
-          <img src={bgImage} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-navy/60" />
+          <img src={bgImage} alt="" className="absolute inset-0 w-full h-full object-cover opacity-55" />
+          <div className="absolute inset-0 bg-white/05" />
         </>
       )}
 
@@ -37,12 +37,12 @@ export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage })
         {/* Breadcrumb */}
         {breadcrumbs.length > 0 && (
           <nav className="flex items-center gap-1.5 mb-5 flex-wrap">
-            <Link to="/" className="text-white/35 text-xs font-inter hover:text-white/60 transition-colors">Home</Link>
+            <Link to="/" className="text-navy/40 text-xs font-inter hover:text-blue-brand transition-colors">Home</Link>
             {breadcrumbs.map(({ label, to }, i) => (
               <React.Fragment key={label}>
-                <ChevronRight size={11} className="text-white/20" />
+                <ChevronRight size={11} className="text-navy/20" />
                 {to ? (
-                  <Link to={to} className="text-white/35 text-xs font-inter hover:text-white/60 transition-colors">{label}</Link>
+                  <Link to={to} className="text-navy/40 text-xs font-inter hover:text-blue-brand transition-colors">{label}</Link>
                 ) : (
                   <span className="text-blue-brand text-xs font-semibold font-inter">{label}</span>
                 )}
@@ -55,13 +55,13 @@ export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage })
         <div className="w-8 h-[3px] bg-blue-brand rounded-full mb-4" />
 
         {/* Title */}
-        <h1 className="font-montserrat font-black text-white text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] leading-tight tracking-tight mb-4 max-w-2xl">
+        <h1 className="font-montserrat font-black text-navy text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] leading-tight tracking-tight mb-4 max-w-2xl">
           {title}
         </h1>
 
         {/* Subtitle */}
         {subtitle && (
-          <p className="text-white/50 text-base sm:text-lg leading-relaxed max-w-xl">{subtitle}</p>
+          <p className="text-gray-500 text-base sm:text-lg leading-relaxed max-w-xl">{subtitle}</p>
         )}
       </div>
     </section>

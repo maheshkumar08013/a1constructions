@@ -1,0 +1,7 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/sunsyswe/a1.sunsysweb.co.in"
+PassengerBaseURI "/"
+PassengerNodejs "/home/sunsyswe/nodevenv/a1.sunsysweb.co.in/20/bin/node"
+PassengerAppType node
+PassengerStartupFile src/index.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
