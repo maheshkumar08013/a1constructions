@@ -176,14 +176,13 @@ export default function HeroSlider() {
     <div className="bg-[#0d1420]/90 backdrop-blur-md border-t border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x-0 sm:divide-x divide-white/8">
-          {stats.map(({ num, label }, i) => (
-            <div key={label}
-              className={`text-center py-3.5 sm:py-5 px-2 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'} ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
-              style={{ transitionDelay:`${200 + i * 60}ms` }}>
-              <Counter targetValue={num} duration={2000} />
-              <div className="text-white/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
-            </div>
-          ))}
+      {stats.map(({ num, label }, i) => (
+  <div key={label}
+    className={`text-center py-3.5 sm:py-5 px-2 ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}>
+    <Counter targetValue={num} duration={2000} />
+    <div className="text-white/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
+  </div>
+))}
         </div>
       </div>
     </div>
