@@ -152,6 +152,7 @@ async function migrate() {
   await ensureColumn('projects', 'year', 'VARCHAR(4) NULL AFTER image')
   await ensureColumn('projects', 'content', 'LONGTEXT NULL AFTER `desc`')
   await ensureColumn('projects', 'gallery', 'LONGTEXT NULL AFTER content')
+  await ensureColumn('projects', 'status', "VARCHAR(20) NOT NULL DEFAULT 'Completed' AFTER category")
 
   // Seed admin
   const [existing] = await conn.query('SELECT id FROM users WHERE email = ?', ['admin@a1construction.co.in'])

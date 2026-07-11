@@ -71,7 +71,7 @@ function crudRoutes(table, fields) {
 
 // Mount CRUD routers
 router.use('/slides', crudRoutes('slides', ['eyebrow','title','subtitle','image','sort_order','active']))
-router.use('/projects', crudRoutes('projects', ['name','category','location','desc','content','image','gallery','year','color','featured','active','sort_order']))
+router.use('/projects', crudRoutes('projects', ['name','category','status','location','desc','content','image','gallery','year','color','featured','active','sort_order']))
 router.use('/services', crudRoutes('services', ['icon','name','desc','sort_order','active']))
 router.use('/cms', cmsRoutes)
 

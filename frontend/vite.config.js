@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: process.env.NODE_ENV === 'production' ? 'https://a1.sunsysweb.co.in' : 'http://localhost:3000',
+        target: process.env.NODE_ENV === 'production' ? 'https://a1.sunsysweb.co.in' : 'http://localhost:5000',
         changeOrigin: true
       }
     }

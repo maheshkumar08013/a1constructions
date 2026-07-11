@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import App from './App.jsx'
@@ -17,9 +17,9 @@ const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 5 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <App />
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-    </HashRouter>
+    </BrowserRouter>
   </QueryClientProvider>
 )

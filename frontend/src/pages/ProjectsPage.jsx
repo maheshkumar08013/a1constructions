@@ -9,8 +9,17 @@ import api from '../utils/api'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { resolveMediaUrl } from '../utils/media'
 
+const STATUSES = ['All', 'Upcoming', 'Ongoing', 'Completed']
+
+const STATUS_STYLES = {
+  Upcoming: 'bg-amber-500',
+  Ongoing: 'bg-blue-brand',
+  Completed: 'bg-emerald-500',
+}
+
 export default function ProjectsPage() {
   const [active, setActive] = useState('All')
+  const [activeStatus, setActiveStatus] = useState('All')
 
   const { data: list = [] } = useQuery({
     queryKey:['projects'],
@@ -19,7 +28,9 @@ export default function ProjectsPage() {
   })
 
   const cats = ['All', ...Array.from(new Set(list.map(p => p.category).filter(Boolean)))]
-  const filtered = active === 'All' ? list : list.filter(p => p.category === active)
+  const filtered = list
+    .filter(p => active === 'All' || p.category === active)
+    .filter(p => activeStatus === 'All' || p.status === activeStatus)
 
   return (
     <div className="min-h-screen bg-white">
@@ -36,8 +47,8 @@ export default function ProjectsPage() {
       <section className="py-16 lg:py-24 bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Filter tabs */}
-          <div className="flex flex-wrap gap-2 mb-10">
+          {/* Category filter tabs */}
+          <div className="flex flex-wrap gap-2 mb-4">
             {cats.map(c => (
               <button
                 key={c}
@@ -49,6 +60,23 @@ export default function ProjectsPage() {
                 }`}
               >
                 {c} {c === 'All' ? `(${list.length})` : ''}
+              </button>
+            ))}
+          </div>
+
+          {/* Status filter tabs */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {STATUSES.map(s => (
+              <button
+                key={s}
+                onClick={() => setActiveStatus(s)}
+                className={`px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wide transition-all duration-200 ${
+                  activeStatus === s
+                    ? 'bg-navy text-white shadow-md'
+                    : 'bg-white text-gray-400 border border-gray-200 hover:border-navy hover:text-navy'
+                }`}
+              >
+                {s}
               </button>
             ))}
           </div>
@@ -75,6 +103,11 @@ export default function ProjectsPage() {
                       <span className="absolute top-3 left-3 bg-blue-brand text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm">
                         {p.category}
                       </span>
+                      {p.status && (
+                        <span className={`absolute bottom-3 left-3 text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm ${STATUS_STYLES[p.status] || 'bg-gray-500'}`}>
+                          {p.status}
+                        </span>
+                      )}
                       {p.year && (
                         <span className="absolute top-3 right-3 bg-white/90 text-navy text-[10px] font-bold px-2 py-1 rounded-sm">{p.year}</span>
                       )}

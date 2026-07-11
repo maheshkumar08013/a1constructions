@@ -509,6 +509,7 @@ export default function AdminPage() {
                 fields={[
                   { name: 'name', label: 'Project Name' },
                   { name: 'category', label: 'Category', type: 'select', options: ['Government','Healthcare','Education','Railway','Industrial','Urban Development','Commercial'] },
+                  { name: 'status', label: 'Status', type: 'select', options: ['Upcoming','Ongoing','Completed'] },
                   { name: 'location', label: 'Location' },
                   { name: 'desc', label: 'Description', type: 'textarea' },
                   { name: 'content', label: 'Project Content', type: 'textarea' },

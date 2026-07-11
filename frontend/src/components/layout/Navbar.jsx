@@ -15,7 +15,11 @@ export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
   const { pathname } = useLocation()
-  const solidNav = scrolled || menuOpen
+  const isHome = pathname === '/'
+  // Solid white bar only once scrolled or menu open — otherwise the header stays transparent.
+  const solidBg = scrolled || menuOpen
+  // Text needs to be dark whenever there isn't a dark hero behind it (inner pages, or once scrolled/menu open).
+  const darkText = scrolled || menuOpen || !isHome
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10)
@@ -33,13 +37,13 @@ export default function Navbar() {
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
-        solidNav
+        solidBg
           ? 'bg-white/95 shadow-[0_2px_20px_rgba(0,0,0,0.09)] backdrop-blur-md'
           : 'bg-transparent shadow-none'
       }`}>
         {/* Top gradient accent bar */}
         <div className={`h-[3px] w-full bg-gradient-to-r from-navy via-blue-brand to-navy transition-opacity duration-300 ${
-          solidNav ? 'opacity-100' : 'opacity-0'
+          solidBg ? 'opacity-100' : 'opacity-0'
         }`} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,13 +62,13 @@ export default function Navbar() {
                     to={to}
                     className={`relative text-[13.5px] font-semibold font-inter px-3.5 py-2 rounded inline-block transition-colors duration-200 ${
                       isActive(to)
-                        ? solidNav ? 'text-blue-brand' : 'text-white'
-                        : solidNav ? 'text-navy hover:text-blue-brand' : 'text-white/85 hover:text-white'
+                        ? darkText ? 'text-blue-brand' : 'text-white'
+                        : darkText ? 'text-navy hover:text-blue-brand' : 'text-white/85 hover:text-white'
                     }`}
                   >
                     {label}
                     <span className={`absolute bottom-0.5 left-3.5 right-3.5 h-[2px] rounded-full transition-transform duration-200 origin-left ${
-                      solidNav ? 'bg-blue-brand' : 'bg-white'
+                      darkText ? 'bg-blue-brand' : 'bg-white'
                     } ${
                       isActive(to) ? 'scale-x-100' : 'scale-x-0'
                     }`} />
@@ -76,12 +80,12 @@ export default function Navbar() {
             {/* Right CTA */}
             <div className="hidden lg:flex items-center gap-4">
               <a href="tel:+919845370474" className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors ${
-                solidNav ? 'text-navy/65 hover:text-blue-brand' : 'text-white/75 hover:text-white'
+                darkText ? 'text-navy/65 hover:text-blue-brand' : 'text-white/75 hover:text-white'
               }`}>
                 <Phone size={13} />
                 +91 98453 70474
               </a>
-              <div className={`w-px h-4 ${solidNav ? 'bg-gray-200' : 'bg-white/20'}`} />
+              <div className={`w-px h-4 ${darkText ? 'bg-gray-200' : 'bg-white/20'}`} />
               {/* <Link
                 to="/contact"
                 className="bg-blue-brand hover:bg-blue-dark text-white px-5 py-2.5 rounded text-[13px] font-bold font-inter transition-colors shadow-sm"
@@ -93,7 +97,7 @@ export default function Navbar() {
             {/* Mobile toggle */}
             <button
               className={`lg:hidden p-2 rounded-md transition-colors ${
-                solidNav ? 'text-navy hover:bg-gray-100' : 'text-white hover:bg-white/10'
+                darkText ? 'text-navy hover:bg-gray-100' : 'text-white hover:bg-white/10'
               }`}
               onClick={() => setMenuOpen(v => !v)}
               aria-label="Toggle menu"

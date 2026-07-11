@@ -113,6 +113,9 @@ export default function ProjectDetailPage() {
               <h3 className="text-lg font-semibold text-navy mb-4">Project Details</h3>
               <div className="space-y-3 text-sm text-gray-600">
                 <div className="flex justify-between"><span className="font-semibold">Category</span><span>{project.category}</span></div>
+                {project.status && (
+                  <div className="flex justify-between"><span className="font-semibold">Status</span><span>{project.status}</span></div>
+                )}
                 <div className="flex justify-between"><span className="font-semibold">Location</span><span>{project.location}</span></div>
                 <div className="flex justify-between"><span className="font-semibold">Year</span><span>{project.year}</span></div>
               </div>
