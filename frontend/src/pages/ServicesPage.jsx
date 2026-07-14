@@ -8,6 +8,8 @@ import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
 import { resolveMediaUrl } from '../utils/media'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import structureWork from '../assets/images/structural-works.jpg'
+
 
 const defaultServices = [
   {
@@ -44,13 +46,13 @@ const defaultServices = [
     id:6, icon:'🚉', name:'Railway Infrastructure',
     desc:'Station buildings, platform works, and railway infrastructure development.',
     details:['Station building construction','Platform and concourse works','Railway colony buildings','South Western Railway empanelled','Civil and structural railway works'],
-    image:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80'
+    image:structureWork
   },
   {
     id:7, icon:'⚙️', name:'Structural Works',
     desc:'RCC frameworks, steel structures, and civil engineering at scale.',
     details:['RCC frame construction','Steel structure fabrication','Pre-stressed concrete works','Foundation and piling','Retaining walls and slopes'],
-    image:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80'
+    image:"structureWork"
   },
   {
     id:8, icon:'⚡', name:'Electrical & Plumbing (MEP)',

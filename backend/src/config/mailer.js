@@ -1,6 +1,14 @@
 const nodemailer = require('nodemailer')
 
 const port = Number(process.env.SMTP_PORT) || 465
+console.log({
+  SMTP_HOST: process.env.SMTP_HOST,
+  SMTP_PORT: process.env.SMTP_PORT,
+  SMTP_USER: process.env.SMTP_USER,
+  SMTP_PASS: process.env.SMTP_PASS ? "Loaded" : "Missing",
+  SMTP_PASS_LENGTH: process.env.SMTP_PASS?.length
+});
+
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
