@@ -1,9 +1,12 @@
 const nodemailer = require('nodemailer')
 
+const port = Number(process.env.SMTP_PORT) || 465
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true,
+  port,
+  secure: port === 465, // implicit TLS on 465, STARTTLS on 587/others
+  family: 4, // force IPv4 - some hosts have no outbound IPv6 route to Gmail
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS

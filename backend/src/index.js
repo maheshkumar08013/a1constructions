@@ -13,6 +13,11 @@ const enquiryRoutes = require('./routes/enquiries')
 
 const app = express()
 
+// Trust the LiteSpeed/reverse proxy in front of the app so req.ip and
+// express-rate-limit see the real client IP instead of throwing on
+// X-Forwarded-For.
+app.set('trust proxy', 1)
+
 // Security
 app.use(helmet({ crossOriginResourcePolicy: false }))
 
@@ -23,10 +28,13 @@ const corsOrigins = [
   'https://a1.sunsysweb.co.in',  // Allow self if needed
 ]
 
-app.use(cors({ 
-  origin: process.env.NODE_ENV === 'production' ? corsOrigins : '*',
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || corsOrigins.includes(origin)) return callback(null, true)
+    callback(new Error(`Origin ${origin} not allowed by CORS`))
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(express.json({ limit: '10mb' }))

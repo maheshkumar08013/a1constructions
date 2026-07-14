@@ -36,7 +36,7 @@ export default function AdminLogin() {
         </div>
 
         <div className="bg-white rounded-2xl p-8 shadow-2xl">
-          <h1 className="font-montserrat font-black text-navy text-xl mb-1">Sign In</h1>
+          <h1 className="font-poppins font-black text-navy text-xl mb-1">Sign In</h1>
           <p className="text-gray-400 text-xs mb-6">Access the content management dashboard</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

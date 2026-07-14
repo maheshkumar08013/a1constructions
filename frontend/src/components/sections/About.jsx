@@ -41,7 +41,7 @@ export default function About() {
               </div>
               {/* Badge */}
               <div className="absolute -bottom-4 -right-4 bg-blue-brand text-white px-5 py-4 rounded-lg shadow-xl text-center">
-                <div className="font-montserrat font-black text-2xl leading-none">A+</div>
+                <div className="font-poppins font-black text-2xl leading-none">A+</div>
                 <div className="text-xs text-white/80 mt-1 font-inter">Quality Rating</div>
               </div>
             </div>

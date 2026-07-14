@@ -72,7 +72,7 @@ export function Clients() {
               key={c.name}
               className="bg-white py-5 px-2 flex flex-col items-center justify-center gap-2 cursor-default group hover:bg-navy transition-all duration-200"
             >
-              <div className="w-10 h-10 bg-gray-100 rounded group-hover:bg-blue-brand/15 flex items-center justify-center font-montserrat font-black text-[11px] text-navy group-hover:text-blue-brand transition-all">
+              <div className="w-10 h-10 bg-gray-100 rounded group-hover:bg-blue-brand/15 flex items-center justify-center font-poppins font-black text-[11px] text-navy group-hover:text-blue-brand transition-all">
                 {c.abbr}
               </div>
               <span className="text-[10px] font-semibold text-gray-400 group-hover:text-white/60 uppercase tracking-tight text-center leading-tight transition-colors">

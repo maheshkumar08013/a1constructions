@@ -58,11 +58,11 @@ function AboutTeaser() {
               </div>
               {/* Stats cards */}
               <div className="absolute -bottom-5 -right-5 bg-blue-brand text-white px-6 py-4 rounded-xl shadow-xl text-center">
-                <div className="font-montserrat font-black text-2xl leading-none">100+</div>
+                <div className="font-poppins font-black text-2xl leading-none">100+</div>
                 <div className="text-xs text-white/75 mt-1 font-inter">Projects Done</div>
               </div>
               <div className="absolute -top-5 -left-5 bg-white shadow-xl rounded-xl px-5 py-3 border border-gray-100">
-                <div className="font-montserrat font-black text-navy text-xl leading-none">14+</div>
+                <div className="font-poppins font-black text-navy text-xl leading-none">14+</div>
                 <div className="text-xs text-gray-400 mt-0.5 font-inter">Years Est.</div>
               </div>
             </div>
@@ -253,7 +253,7 @@ function TestimonialsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-12 lg:mb-14">
           <p className="text-blue-brand text-xs font-bold uppercase tracking-[4px] mb-4 font-inter">Testimonials</p>
-          <h2 className="font-montserrat font-black text-white text-3xl sm:text-4xl lg:text-5xl leading-tight">
+          <h2 className="font-poppins font-black text-white text-3xl sm:text-4xl lg:text-5xl leading-tight">
             What Our Clients Say
           </h2>
           <div className="w-11 h-[3px] bg-blue-brand rounded-full mx-auto mt-5" />
@@ -333,7 +333,7 @@ function CTABanner() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <AnimatedSection>
           <p className="text-white/80 text-xs font-bold uppercase tracking-[3px] mb-4 font-inter">Start Your Project</p>
-          <h2 className="font-montserrat font-black text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5 max-w-3xl mx-auto">
+          <h2 className="font-poppins font-black text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5 max-w-3xl mx-auto">
             Ready to Build Something That Lasts?
           </h2>
           <p className="text-white/80 text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">

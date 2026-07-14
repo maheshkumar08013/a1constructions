@@ -90,12 +90,12 @@ function Dashboard() {
   ]
   return (
     <div>
-      <h1 className="font-montserrat font-bold text-navy text-2xl mb-8">Dashboard</h1>
+      <h1 className="font-poppins font-bold text-navy text-2xl mb-8">Dashboard</h1>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map(s => (
           <div key={s.key} className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
             <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">{s.label}</p>
-            <p className="font-montserrat font-black text-navy text-3xl">—</p>
+            <p className="font-poppins font-black text-navy text-3xl">—</p>
           </div>
         ))}
       </div>
@@ -241,7 +241,7 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-montserrat font-bold text-navy text-2xl">{title}</h1>
+        <h1 className="font-poppins font-bold text-navy text-2xl">{title}</h1>
         <button onClick={openNew} className="flex items-center gap-2 bg-blue-brand text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-dark transition-colors">
           <Plus size={15} />{createLabel || 'New'}
         </button>
@@ -419,7 +419,7 @@ function MediaManager() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-montserrat font-bold text-navy text-2xl">Media</h1>
+        <h1 className="font-poppins font-bold text-navy text-2xl">Media</h1>
         <form onSubmit={onSubmit} className="flex items-center gap-3">
           <input onChange={e => setFile(e.target.files[0])} type="file" className="text-sm" />
           <button type="submit" className="bg-blue-brand text-white px-4 py-2.5 rounded-lg text-sm">Upload</button>
@@ -458,7 +458,7 @@ function Enquiries() {
 
   return (
     <div>
-      <h1 className="font-montserrat font-bold text-navy text-2xl mb-6">Enquiries</h1>
+      <h1 className="font-poppins font-bold text-navy text-2xl mb-6">Enquiries</h1>
       {isLoading ? (
         <div className="flex justify-center py-16"><div className="w-8 h-8 border-2 border-blue-brand border-t-transparent rounded-full animate-spin" /></div>
       ) : (
@@ -499,7 +499,7 @@ export default function AdminPage() {
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100">
             <Menu size={20} />
           </button>
-          <span className="font-montserrat font-semibold text-navy text-sm ml-auto">
+          <span className="font-poppins font-semibold text-navy text-sm ml-auto">
             👤 {user?.name || 'Admin'}
           </span>
         </header>

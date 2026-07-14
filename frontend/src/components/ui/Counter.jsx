@@ -74,7 +74,7 @@ export default function Counter({ targetValue, duration = 2000, prefix = '', suf
   return (
     <div
       ref={elementRef}
-      className="font-montserrat font-black text-black text-xl sm:text-[22px] leading-none">
+      className="font-poppins font-black text-black text-xl sm:text-[22px] leading-none">
       {prefix}{displayValue}{suffix}
     </div>
   )

@@ -11,7 +11,6 @@ export default {
         light: '#F5F7FA',
       },
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
       },

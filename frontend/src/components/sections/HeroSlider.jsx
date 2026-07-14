@@ -117,7 +117,7 @@ export default function HeroSlider() {
             </div>
 
             <h1
-              className={`font-montserrat font-black text-white leading-[1.06] tracking-tight mb-5 text-[28px] sm:text-[38px] md:text-[44px] lg:text-[54px] xl:text-[60px] transition-all duration-600 delay-75 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`font-poppins text-white leading-[1.06] tracking-tight mb-5 text-[22px] sm:text-[28px] md:text-[34px] lg:text-[44px] xl:text-[60px] transition-all duration-600 delay-75 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ textShadow:'0 2px 16px rgba(0,0,0,0.25)' }}
             >
               {slide.title}

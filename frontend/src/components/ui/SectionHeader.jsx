@@ -10,7 +10,7 @@ export function SectionLabel({ children, light = false }) {
 
 export function SectionTitle({ children, light = false, center = false }) {
   return (
-    <h2 className={`font-montserrat font-800 leading-[1.15] mb-3 text-2xl sm:text-3xl lg:text-4xl ${light ? 'text-white' : 'text-navy'} ${center ? 'text-center' : ''}`}>
+    <h2 className={`font-poppins font-800 leading-[1.15] mb-3 text-2xl sm:text-3xl lg:text-4xl ${light ? 'text-white' : 'text-navy'} ${center ? 'text-center' : ''}`}>
       {children}
     </h2>
   )

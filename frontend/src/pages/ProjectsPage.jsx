@@ -110,7 +110,7 @@ export default function ProjectsPage() {
       <section className="py-16 bg-navy">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <h2 className="font-montserrat font-black text-white text-2xl sm:text-3xl mb-4">Want to See More Projects?</h2>
+            <h2 className="font-poppins font-black text-white text-2xl sm:text-3xl mb-4">Want to See More Projects?</h2>
             <p className="text-white/40 text-sm mb-7 max-w-md mx-auto">Contact us for a complete project portfolio and case studies relevant to your sector.</p>
             <Link to="/contact" className="inline-flex items-center gap-2 bg-blue-brand text-white px-7 py-3.5 rounded font-bold text-sm hover:bg-blue-dark transition-colors">
               Request Portfolio <ArrowRight size={14} />

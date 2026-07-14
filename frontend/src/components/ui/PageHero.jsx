@@ -55,7 +55,7 @@ export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage })
         <div className="w-8 h-[3px] bg-blue-brand rounded-full mb-4" />
 
         {/* Title */}
-        <h1 className="font-montserrat font-black text-navy text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] leading-tight tracking-tight mb-4 max-w-2xl">
+        <h1 className="font-poppins font-black text-navy text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] leading-tight tracking-tight mb-4 max-w-2xl">
           {title}
         </h1>
 

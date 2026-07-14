@@ -70,7 +70,7 @@ export default function MenuManager() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-montserrat font-bold text-navy text-2xl">Menus</h1>
+        <h1 className="font-poppins font-bold text-navy text-2xl">Menus</h1>
         <div className="flex items-center gap-2">
           <input value={name} onChange={e => setName(e.target.value)} placeholder="New menu name" className="px-3 py-2 border rounded" />
           <button onClick={addMenu} className="bg-blue-brand text-white px-4 py-2 rounded">Add Menu</button>

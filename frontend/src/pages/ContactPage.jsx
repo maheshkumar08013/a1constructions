@@ -164,7 +164,7 @@ export default function ContactPage() {
                 {/* Quick reach */}
                 <div className="bg-blue-brand rounded-xl p-5 text-center mt-5">
                   <p className="text-white/80 text-xs mb-2">For urgent enquiries, call us directly</p>
-                  <a href="tel:+919845370474" className="font-montserrat font-black text-white text-xl hover:text-white/80 transition-colors">
+                  <a href="tel:+919845370474" className="font-poppins font-black text-white text-xl hover:text-white/80 transition-colors">
                     +91 9845370474
                   </a>
                 </div>

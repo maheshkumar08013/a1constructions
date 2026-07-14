@@ -10,7 +10,7 @@ export function CTABanner() {
       }} />
       <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
         <AnimatedSection>
-          <h2 className="font-montserrat font-black text-white text-3xl sm:text-4xl lg:text-[44px] leading-tight mb-4">
+          <h2 className="font-poppins font-black text-white text-3xl sm:text-4xl lg:text-[44px] leading-tight mb-4">
             Let's Build the Future Together.
           </h2>
           <p className="text-white/75 text-base mb-8 max-w-xl mx-auto">

@@ -104,7 +104,7 @@ export default function ServicesPage() {
         <div className="p-8">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-3xl">{service.icon || '🏗'}</span>
-            <h3 className="font-montserrat font-bold text-navy text-xl">{service.name}</h3>
+            <h3 className="font-poppins font-bold text-navy text-xl">{service.name}</h3>
           </div>
           <p className="text-gray-500 text-sm leading-relaxed mb-5">{service.desc}</p>
           {service.details && (
@@ -189,7 +189,7 @@ export default function ServicesPage() {
             {process.map((p, i) => (
               <AnimatedSection key={p.step}>
                 <div className="relative border border-white/8 rounded-xl p-6 hover:bg-white/4 hover:border-blue-brand/30 transition-all duration-200">
-                  <div className="text-blue-brand/90 font-montserrat font-black text-5xl leading-none mb-4 select-none">{p.step}</div>
+                  <div className="text-blue-brand/90 font-poppins font-black text-5xl leading-none mb-4 select-none">{p.step}</div>
                   <h3 className="font-poppins font-semibold text-white text-sm mb-2">{p.title}</h3>
                   <p className="text-white/80 text-xs leading-relaxed">{p.desc}</p>
                   {i < process.length - 1 && (

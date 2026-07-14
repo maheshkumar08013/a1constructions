@@ -22,8 +22,8 @@ function ScrollToTop() {
 function NotFound() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center text-center px-4">
-      <div className="text-8xl font-montserrat font-black text-gray-100 mb-4">404</div>
-      <h1 className="font-montserrat font-black text-navy text-2xl mb-2">Page Not Found</h1>
+      <div className="text-8xl font-poppins font-black text-gray-100 mb-4">404</div>
+      <h1 className="font-poppins font-black text-navy text-2xl mb-2">Page Not Found</h1>
       <p className="text-gray-400 text-sm mb-8 max-w-sm">The page you're looking for doesn't exist or has been moved.</p>
       <a href="/" className="bg-blue-brand text-white px-6 py-3 rounded font-bold text-sm hover:bg-blue-dark transition-colors">
         ← Back to Home

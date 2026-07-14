@@ -181,7 +181,7 @@ export default function AboutPage() {
             {stats.map(({ Icon, num, label }) => (
               <div key={label} className="text-center py-8 px-4">
                 <Icon size={20} className="text-blue-brand mx-auto mb-3" />
-                <div className="font-montserrat font-black text-navy text-2xl sm:text-3xl leading-none mb-1">{num}</div>
+                <div className="font-poppins font-black text-navy text-2xl sm:text-3xl leading-none mb-1">{num}</div>
                 <div className="text-gray-400 text-xs uppercase tracking-wider font-inter">{label}</div>
               </div>
             ))}
@@ -254,11 +254,11 @@ export default function AboutPage() {
               </div>
               <div className="grid grid-cols-2 gap-3 mt-6 max-w-sm">
                 <div className="rounded-xl bg-light border border-gray-100 px-4 py-3">
-                  <div className="font-montserrat font-black text-navy text-xl">20+</div>
+                  <div className="font-poppins font-black text-navy text-xl">20+</div>
                   <div className="text-gray-400 text-xs">Years Experience</div>
                 </div>
                 <div className="rounded-xl bg-light border border-gray-100 px-4 py-3">
-                  <div className="font-montserrat font-black text-navy text-xl">100+</div>
+                  <div className="font-poppins font-black text-navy text-xl">100+</div>
                   <div className="text-gray-400 text-xs">Projects Led</div>
                 </div>
               </div>
@@ -282,7 +282,7 @@ export default function AboutPage() {
               <div className="relative grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 items-start">
                 <div>
                   
-                  <h2 className="font-montserrat font-black text-3xl sm:text-4xl lg:text-5xl leading-[1.04] tracking-tight mt-4">Our Organizational Philosophy</h2>
+                  <h2 className="font-poppins font-black text-3xl sm:text-4xl lg:text-5xl leading-[1.04] tracking-tight mt-4">Our Organizational Philosophy</h2>
                   <p className="text-blue-50 text-xl sm:text-2xl font-semibold mt-4">Building Beyond Structures</p>
                   <p className="text-white/72 text-base sm:text-lg leading-relaxed max-w-2xl mt-6">
                     At A1 Construction, infrastructure development is not merely the process of constructing buildings with concrete and steel. It is the strategic creation of assets that influence economic productivity, social advancement, long-term sustainability, communities thrive, and future generations prosper.
@@ -299,7 +299,7 @@ export default function AboutPage() {
                   {philosophyPillars.map((item, index) => (
                     <div key={item} className="rounded-2xl border border-white/12 bg-white/8 backdrop-blur-sm px-5 py-5">
                       <div className="text-[10px] font-bold uppercase tracking-[3px] text-blue-100/70 mb-2 font-inter">0{index + 1}</div>
-                      <div className="font-montserrat font-bold text-xl leading-tight">{item}</div>
+                      <div className="font-poppins font-bold text-xl leading-tight">{item}</div>
                     </div>
                   ))}
                 </div>
@@ -323,7 +323,7 @@ export default function AboutPage() {
                   <Target size={22} className="text-blue-brand" />
                 </div>
                 <div className="text-[11px] uppercase tracking-[3px] text-blue-brand font-bold font-inter mb-2">Vision</div>
-                <h3 className="font-montserrat font-black text-navy text-2xl leading-tight mb-4">Recognition built on innovation, excellence, and national impact</h3>
+                <h3 className="font-poppins font-black text-navy text-2xl leading-tight mb-4">Recognition built on innovation, excellence, and national impact</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
                   To be recognized among India&apos;s most respected infrastructure development organizations, distinguished by engineering innovation, operational excellence, sustainable practices, and the successful delivery of nationally significant projects that create lasting societal impact.
                 </p>
@@ -337,7 +337,7 @@ export default function AboutPage() {
                     <Compass size={22} className="text-blue-brand" />
                   </div>
                   <div className="text-[11px] uppercase tracking-[3px] text-blue-brand font-bold font-inter mb-2">Mission</div>
-                  <h3 className="font-montserrat font-black text-2xl leading-tight mb-4">Deliver high-quality infrastructure with long-term value at the center</h3>
+                  <h3 className="font-poppins font-black text-2xl leading-tight mb-4">Deliver high-quality infrastructure with long-term value at the center</h3>
                   <p className="text-white/68 text-sm leading-relaxed mb-5">
                     To deliver high-quality infrastructure solutions through engineering-driven project execution, technological advancement, operational excellence, professional integrity, sustainable development practices, and customer-centric service delivery while creating long-term value for clients, stakeholders, employees, and society.
                   </p>
@@ -398,7 +398,7 @@ export default function AboutPage() {
             {businessVerticals.map((item, index) => (
               <AnimatedSection key={item.title}>
                 <div className="h-full rounded-[24px] border border-gray-100 bg-light p-5 hover:border-blue-brand/30 hover:shadow-lg transition-all duration-300">
-                  <div className="font-montserrat font-black text-blue-brand text-2xl mb-4">{String(index + 1).padStart(2, '0')}</div>
+                  <div className="font-poppins font-black text-blue-brand text-2xl mb-4">{String(index + 1).padStart(2, '0')}</div>
                   <h3 className="font-poppins font-semibold text-navy text-sm mb-2">{item.title}</h3>
                   <p className="text-gray-500 text-[13px] leading-relaxed">{item.desc}</p>
                 </div>
@@ -441,7 +441,7 @@ export default function AboutPage() {
                   <ShieldCheck size={22} className="text-blue-brand" />
                 </div>
                 
-                <h3 className="font-montserrat font-black text-navy text-3xl leading-tight mt-4 mb-4">Quality Philosophy</h3>
+                <h3 className="font-poppins font-black text-navy text-3xl leading-tight mt-4 mb-4">Quality Philosophy</h3>
                 <p className="text-navy font-semibold text-lg leading-relaxed">
                   Quality Is Not Inspected Into A Project. It Is Engineered Into Every Process.
                 </p>
@@ -487,7 +487,7 @@ export default function AboutPage() {
                   <HardHat size={22} className="text-blue-brand" />
                 </div>
                 <div className="text-[11px] uppercase tracking-[3px] text-blue-brand font-bold font-inter mb-2">Health, Safety & Environment</div>
-                <h3 className="font-montserrat font-black text-white text-2xl leading-tight mb-4">A culture of responsibility</h3>
+                <h3 className="font-poppins font-black text-white text-2xl leading-tight mb-4">A culture of responsibility</h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-5">
                   A1 Construction recognizes that sustainable project success is intrinsically linked to workforce wellbeing, environmental stewardship, and operational safety. Safety is not merely a compliance requirement, it is a core organizational value embedded within every activity we undertake.
                 </p>
@@ -505,7 +505,7 @@ export default function AboutPage() {
                   <Users size={22} className="text-blue-brand" />
                 </div>
                 <div className="text-[11px] uppercase tracking-[3px] text-blue-brand font-bold font-inter mb-2">Human Capital</div>
-                <h3 className="font-montserrat font-black text-navy text-2xl leading-tight mb-4">The foundation of our success lies in our people</h3>
+                <h3 className="font-poppins font-black text-navy text-2xl leading-tight mb-4">The foundation of our success lies in our people</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-5">
                   A1 Construction is supported by a highly competent team of engineers, architects, project managers, technical specialists, supervisors, and skilled construction professionals possessing extensive experience across multiple infrastructure sectors.
                 </p>
@@ -624,7 +624,7 @@ export default function AboutPage() {
       <section className="py-16 bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <h2 className="font-montserrat font-black text-white text-2xl sm:text-3xl mb-4">Ready to Start Your Project?</h2>
+            <h2 className="font-poppins font-black text-white text-2xl sm:text-3xl mb-4">Ready to Start Your Project?</h2>
             <p className="text-white/45 mb-7 max-w-lg mx-auto text-sm">Connect with our engineering team to discuss your infrastructure requirements.</p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link to="/contact" className="inline-flex items-center gap-2 bg-blue-brand text-white px-7 py-3.5 rounded font-bold text-sm hover:bg-blue-dark transition-colors">
