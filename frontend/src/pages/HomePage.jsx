@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
 import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react'
 import { resolveMediaUrl } from '../utils/media'
+import aboutUsImage from '../assets/about-us1.webp'
 import swrLogo from '../assets/images/clientlogo/south western railways.jpg'
 import bbmpLogo from '../assets/images/clientlogo/Bruhat_Bengaluru_Mahanagara_Palike_logo.jpg'
 import pwdLogo from '../assets/images/clientlogo/pwd.png'
@@ -21,6 +22,7 @@ import kridlLogo from '../assets/images/clientlogo/kridl.png'
 import niasLogo from '../assets/images/clientlogo/National_Institute_of_Advanced_Studies_Logo.png'
 import kfO from '../assets/images/clientlogo/kof.png'
 import tscL from '../assets/images/clientlogo/tscl.png'
+import rvs from '../assets/images/clientlogo/rvs.png'
 
 
 /* ── About Teaser ───────────────────────────── */
@@ -39,22 +41,8 @@ function AboutTeaser() {
           {/* Visual */}
           <AnimatedSection>
             <div className="relative">
-              <div className="bg-gradient-to-br from-navy to-[#1e2d47] rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center relative">
-                <div className="absolute inset-0 opacity-[0.07]"
-                  style={{
-                    backgroundImage: 'linear-gradient(rgba(29,161,242,1) 1px,transparent 1px),linear-gradient(90deg,rgba(29,161,242,1) 1px,transparent 1px)',
-                    backgroundSize: '28px 28px'
-                  }} />
-                <svg className="relative z-10" width="260" height="220" viewBox="0 0 260 220" fill="none">
-                  <rect x="20" y="70" width="65" height="150" fill="rgba(29,161,242,0.10)" stroke="rgba(29,161,242,0.35)" strokeWidth="1.5"/>
-                  <rect x="97" y="35" width="65" height="185" fill="rgba(29,161,242,0.16)" stroke="rgba(29,161,242,0.5)" strokeWidth="1.5"/>
-                  <rect x="175" y="90" width="65" height="130" fill="rgba(29,161,242,0.09)" stroke="rgba(29,161,242,0.3)" strokeWidth="1.5"/>
-                  {[[30,90],[48,90],[30,114],[48,114]].map(([x,y],i)=><rect key={i} x={x} y={y} width="11" height="14" fill="rgba(29,161,242,0.4)"/>)}
-                  {[[107,55],[127,55],[107,81],[127,81],[107,107],[127,107]].map(([x,y],i)=><rect key={i} x={x} y={y} width="13" height="17" fill="rgba(29,161,242,0.5)"/>)}
-                  {[[185,110],[203,110]].map(([x,y],i)=><rect key={i} x={x} y={y} width="11" height="13" fill="rgba(29,161,242,0.35)"/>)}
-                  <rect x="122" y="12" width="15" height="23" fill="rgba(29,161,242,0.65)"/>
-                  <line x1="0" y1="220" x2="260" y2="220" stroke="rgba(29,161,242,0.3)" strokeWidth="1.5"/>
-                </svg>
+              <div className="rounded-2xl overflow-hidden aspect-[4/3] relative">
+                <img src={aboutUsImage} alt="A1 Construction - About Us" className="w-full h-full object-cover" />
               </div>
               {/* Stats cards */}
               <div className="absolute -bottom-5 -right-5 bg-blue-brand text-white px-6 py-4 rounded-xl shadow-xl text-center">
@@ -201,6 +189,7 @@ const clients = [
   { name:'NIAS', logo:niasLogo, alt:'National Institute of Advanced Studies' },
   { name:'TSCL', logo:tscL, alt:'Tumkur Smart City Limited' },
   { name:'KOF', logo:kfO, alt:'Karnataka Opportunity Fund' },
+  { name:'RVS', logo:rvs, alt:'Rural Development Society' },
 ]
 
 function ClientsStrip() {
@@ -214,7 +203,7 @@ function ClientsStrip() {
           {clients.map(c => (
             <AnimatedSection key={c.name}>
               <div className="bg-white rounded-lg p-5 border border-gray-100 hover:border-blue-brand/30 hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center h-28">
-                <img src={c.logo} alt={c.alt} className="h-12 object-contain mb-2" />
+                <img src={c.logo} alt={c.alt} className="h-16 object-contain mb-2" />
                 <p className="text-navy text-[11px] font-semibold text-center leading-tight">{c.name}</p>
               </div>
             </AnimatedSection>
@@ -343,9 +332,9 @@ function CTABanner() {
             <Link to="/contact" className="inline-flex items-center gap-2 bg-navy hover:bg-white hover:text-black text-white px-8 py-4 rounded font-bold font-inter text-sm transition-colors shadow-lg shadow-blue-brand/20">
               Request a Proposal <ArrowRight size={14} />
             </Link>
-            <a href="tel:+919845370474" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/50 hover:bg-white hover:text-black text-white px-8 py-4 rounded font-bold font-inter text-sm transition-all">
+            {/* <a href="tel:+919845370474" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/50 hover:bg-white hover:text-black text-white px-8 py-4 rounded font-bold font-inter text-sm transition-all">
               +91 98453 70474
-            </a>
+            </a> */}
           </div>
         </AnimatedSection>
       </div>

@@ -8,7 +8,16 @@ import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
 import { resolveMediaUrl } from '../utils/media'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
-import structureWork from '../assets/images/structural-works.jpg'
+import buildingConstruction from '../assets/images/building-construction.jpg'
+import governmentInfrastructure from '../assets/images/government-infrastructure.jpg'
+import healthcareInfrastructure from '../assets/images/heathcare-infrastructure.jpg'
+import educationalInfrastructure from '../assets/images/educational-infrastructure.jpg'
+import industrialConstruction from '../assets/images/industrial-construction.jpg'
+import structuralWorks from '../assets/images/structural-works.jpg'
+import electricalPlumbing from '../assets/images/electrical-plumbing.jpg'
+import interiorExteriorWorks from '../assets/images/interiore-exterior-works.jpg'
+import infrastructureDevelopment from '../assets/images/infrastructure-development.jpg'
+import projectManagement from '../assets/images/project-management.jpg'
 
 
 const defaultServices = [
@@ -16,61 +25,61 @@ const defaultServices = [
     id:1, icon:'🏗', name:'Building Construction',
     desc:'Complete construction of residential, commercial, and institutional buildings to IS standards.',
     details:['RCC framed structures','Load-bearing masonry','Structural steel works','Foundation engineering','Multi-storey complexes'],
-    image:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80'
+    image:buildingConstruction
   },
   {
     id:2, icon:'🏛', name:'Government Infrastructure',
     desc:'Public buildings, civil works, and government-mandated infrastructure projects.',
     details:['Government office complexes','Civic amenity buildings','Public works department projects','PWD empanelled contractor','Full tender compliance support'],
-    image:'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=800&q=80'
+    image:governmentInfrastructure
   },
   {
     id:3, icon:'🏥', name:'Healthcare Infrastructure',
     desc:'Hospitals, medical centres, and healthcare facilities built to precise specifications.',
     details:['Multi-speciality hospitals','Primary health centres','Operation theatre suites','ICU and ward infrastructure','Medical gas pipeline integration'],
-    image:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80'
+    image:healthcareInfrastructure
   },
   {
     id:4, icon:'🎓', name:'Educational Infrastructure',
     desc:'Colleges, universities, hostels, and academic campuses across Karnataka.',
     details:['Degree college buildings','University campus complexes','Student hostels and residences','Auditoriums and seminar halls','Library and lab blocks'],
-    image:'https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80'
+    image:educationalInfrastructure
   },
   {
     id:5, icon:'🏭', name:'Industrial Construction',
     desc:'Warehouses, storage facilities, and industrial complexes built for durability.',
     details:['Industrial shed construction','Pre-engineered buildings','Cold storage facilities','Warehouse complexes','Factory floor works'],
-    image:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80'
+    image:industrialConstruction
   },
   {
-    id:6, icon:'🚉', name:'Railway Infrastructure',
-    desc:'Station buildings, platform works, and railway infrastructure development.',
-    details:['Station building construction','Platform and concourse works','Railway colony buildings','South Western Railway empanelled','Civil and structural railway works'],
-    image:structureWork
-  },
-  {
-    id:7, icon:'⚙️', name:'Structural Works',
+    id:6, icon:'⚙️', name:'Structural Works',
     desc:'RCC frameworks, steel structures, and civil engineering at scale.',
     details:['RCC frame construction','Steel structure fabrication','Pre-stressed concrete works','Foundation and piling','Retaining walls and slopes'],
-    image:"structureWork"
+    image:structuralWorks
   },
   {
-    id:8, icon:'⚡', name:'Electrical & Plumbing (MEP)',
+    id:7, icon:'⚡', name:'Electrical & Plumbing',
     desc:'Complete MEP services integrated seamlessly into construction workflows.',
     details:['LT/HT electrical works','Plumbing and sanitation','Fire-fighting systems','HVAC works','Solar panel installation'],
-    image:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80'
+    image:electricalPlumbing
+  },
+  {
+    id:8, icon:'🎨', name:'Interior & Exterior Works',
+    desc:'Finishing, cladding, and interior fit-outs for premium project delivery.',
+    details:['Interior fit-outs','Facade and cladding works','False ceiling and flooring','Painting and finishing','Exterior landscaping'],
+    image:interiorExteriorWorks
   },
   {
     id:9, icon:'🛣', name:'Infrastructure Development',
     desc:'Roads, drainage, utilities, and urban infrastructure for public authorities.',
     details:['Road construction and laying','Storm water drainage','Underground utilities','Compound wall and fencing','Landscaping and external works'],
-    image:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80'
+    image:infrastructureDevelopment
   },
   {
     id:10, icon:'📋', name:'Project Management',
     desc:'Full PMC services — planning, coordination, quality, and timely delivery.',
     details:['Pre-construction planning','Contractor coordination','Quality audits and reporting','Cost and schedule management','Handover documentation'],
-    image:'https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80'
+    image:projectManagement
   },
 ]
 
