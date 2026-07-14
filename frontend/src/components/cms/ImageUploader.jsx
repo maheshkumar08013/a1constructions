@@ -29,6 +29,12 @@ export default function ImageUploader({ name, setValue, value }) {
     } finally { setUploading(false) }
   }
 
+  const removeImage = () => {
+    setValue(name, '')
+    setPreview('')
+    setFile(null)
+  }
+
   return (
     <div>
       <div className="flex items-center gap-3">
@@ -43,6 +49,9 @@ export default function ImageUploader({ name, setValue, value }) {
           ) : (
             <a href={resolveMediaUrl(preview)} target="_blank" rel="noreferrer" className="text-sm text-blue-brand">{preview}</a>
           )}
+          <div>
+            <button type="button" onClick={removeImage} className="mt-2 text-xs text-red-500">Remove</button>
+          </div>
         </div>
       )}
     </div>

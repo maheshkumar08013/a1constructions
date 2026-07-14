@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import PageHero from '../components/ui/PageHero'
-import { ArrowRight, X } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
 import { parseGallery, resolveMediaUrl } from '../utils/media'
 
 export default function ProjectDetailPage() {
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null)
   const { id } = useParams()
   const { data: project, isLoading } = useQuery({
     queryKey: ['project', id],
@@ -21,6 +21,20 @@ export default function ProjectDetailPage() {
   const galleryImages = project
     ? Array.from(new Set([heroImage, ...parseGallery(project.gallery)].filter(Boolean)))
     : []
+
+  const showPrev = () => setSelectedIndex(i => (i - 1 + galleryImages.length) % galleryImages.length)
+  const showNext = () => setSelectedIndex(i => (i + 1) % galleryImages.length)
+
+  useEffect(() => {
+    if (selectedIndex === null) return
+    const onKeyDown = e => {
+      if (e.key === 'Escape') setSelectedIndex(null)
+      if (e.key === 'ArrowLeft') showPrev()
+      if (e.key === 'ArrowRight') showNext()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [selectedIndex, galleryImages.length])
 
   if (isLoading) {
     return (
@@ -82,29 +96,6 @@ export default function ProjectDetailPage() {
                   <div className="text-gray-500 leading-relaxed whitespace-pre-line">{project.content}</div>
                 </div>
               )}
-
-              {galleryImages.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold text-navy mb-4">Gallery</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {galleryImages.map((imageUrl, idx) => (
-                      <button
-                        type="button"
-                        key={`${imageUrl}-${idx}`}
-                        onClick={() => setSelectedImage(imageUrl)}
-                        className="w-full h-64 overflow-hidden rounded-3xl border border-gray-100 bg-gray-50"
-                      >
-                        <img
-                          src={imageUrl}
-                          alt={`${project.name} gallery ${idx + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
-                          loading="lazy"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </section>
 
@@ -129,19 +120,64 @@ export default function ProjectDetailPage() {
             </div>
           </aside>
         </div>
+
+        {galleryImages.length > 0 && (
+          <div className="mt-12">
+            <h3 className="text-lg font-semibold text-navy mb-4">Gallery</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {galleryImages.map((imageUrl, idx) => (
+                <button
+                  type="button"
+                  key={`${imageUrl}-${idx}`}
+                  onClick={() => setSelectedIndex(idx)}
+                  className="w-full h-64 overflow-hidden rounded-3xl border border-gray-100 bg-gray-50"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={`${project.name} gallery ${idx + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
+                    loading="lazy"
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
 
-      {selectedImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setSelectedImage(null)}>
+      {selectedIndex !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setSelectedIndex(null)}>
           <div className="relative max-w-5xl w-full rounded-3xl overflow-hidden bg-white" onClick={e => e.stopPropagation()}>
             <button
               type="button"
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedIndex(null)}
               className="absolute top-4 right-4 z-10 rounded-full bg-black/70 text-white p-2 hover:bg-black/90"
             >
               <X size={20} />
             </button>
-            <img src={selectedImage} alt="Gallery preview" className="w-full max-h-[85vh] object-contain bg-black" />
+
+            {galleryImages.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={showPrev}
+                  aria-label="Previous image"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 rounded-full bg-black/70 text-white p-2 hover:bg-black/90"
+                >
+                  <ChevronLeft size={22} />
+                </button>
+                <button
+                  type="button"
+                  onClick={showNext}
+                  aria-label="Next image"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-10 rounded-full bg-black/70 text-white p-2 hover:bg-black/90"
+                >
+                  <ChevronRight size={22} />
+                </button>
+              </>
+            )}
+
+            <img src={galleryImages[selectedIndex]} alt="Gallery preview" className="w-full max-h-[85vh] object-contain bg-black" />
           </div>
         </div>
       )}

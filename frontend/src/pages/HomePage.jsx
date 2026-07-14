@@ -5,6 +5,8 @@ import Footer from '../components/layout/Footer'
 import HeroSlider from '../components/sections/HeroSlider'
 import TaglineStrip from '../components/sections/TaglineStrip'
 import { ContactSection } from '../components/sections/OtherSections'
+import Counter from '../components/ui/Counter'   // add this import at the top with your other imports
+
 import { SectionLabel, SectionTitle, SectionRule, SectionDesc, AnimatedSection } from '../components/ui/SectionHeader'
 import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
@@ -12,16 +14,19 @@ import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react'
 import { resolveMediaUrl } from '../utils/media'
 import swrLogo from '../assets/images/clientlogo/south western railways.jpg'
 import bbmpLogo from '../assets/images/clientlogo/Bruhat_Bengaluru_Mahanagara_Palike_logo.jpg'
-import pwdLogo from '../assets/images/clientlogo/pwd-karnataka-logo.jpg'
+import pwdLogo from '../assets/images/clientlogo/pwd.png'
 import khbLogo from '../assets/images/clientlogo/karnataka housing board.png'
 import buLogo from '../assets/images/clientlogo/bangalore university.png'
 import kridlLogo from '../assets/images/clientlogo/kridl.png'
 import niasLogo from '../assets/images/clientlogo/National_Institute_of_Advanced_Studies_Logo.png'
+import kfO from '../assets/images/clientlogo/kof.png'
+import tscL from '../assets/images/clientlogo/tscl.png'
+
 
 /* ── About Teaser ───────────────────────────── */
 function AboutTeaser() {
   const highlights = [
-    'Est. 2012, Bengaluru — 12+ years in infrastructure',
+    'Est. 2012, Bengaluru — 14+ years in infrastructure',
     'Pan-Karnataka projects: government, healthcare, education',
     'Registered with PWD, BBMP, South Western Railway',
     '500+ skilled workforce, dedicated project teams',
@@ -57,7 +62,7 @@ function AboutTeaser() {
                 <div className="text-xs text-white/75 mt-1 font-inter">Projects Done</div>
               </div>
               <div className="absolute -top-5 -left-5 bg-white shadow-xl rounded-xl px-5 py-3 border border-gray-100">
-                <div className="font-montserrat font-black text-navy text-xl leading-none">12+</div>
+                <div className="font-montserrat font-black text-navy text-xl leading-none">14+</div>
                 <div className="text-xs text-gray-400 mt-0.5 font-inter">Years Est.</div>
               </div>
             </div>
@@ -189,13 +194,13 @@ function ProjectsTeaser() {
 const clients = [
   { name:'South Western Railway', logo:swrLogo, alt:'South Western Railway' },
   { name:'BBMP', logo:bbmpLogo, alt:'Bruhat Bengaluru Mahanagara Palike' },
-  { name:'PWD Karnataka', logo:pwdLogo, alt:'Public Works Department Karnataka' },
+  { name:'PWD ', logo:pwdLogo, alt:'Public Works Department Karnataka' },
   { name:'Karnataka Housing Board', logo:khbLogo, alt:'Karnataka Housing Board' },
   { name:'Bangalore University', logo:buLogo, alt:'Bangalore University' },
   { name:'KRIDL', logo:kridlLogo, alt:'Karnataka Renewable Energy Development Ltd' },
   { name:'NIAS', logo:niasLogo, alt:'National Institute of Advanced Studies' },
-  { name:'TSCL', logo:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%231A1A2E%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2250%22 font-size=%2216%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3ETSCL%3C/text%3E%3C/svg%3E', alt:'Tamil Nadu Scientific & Technology Council' },
-  { name:'KOF', logo:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%231A1A2E%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2250%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EKOF%3C/text%3E%3C/svg%3E', alt:'Karnataka Opportunity Fund' },
+  { name:'TSCL', logo:tscL, alt:'Tumkur Smart City Limited' },
+  { name:'KOF', logo:kfO, alt:'Karnataka Opportunity Fund' },
 ]
 
 function ClientsStrip() {
@@ -203,7 +208,7 @@ function ClientsStrip() {
     <section className="py-16 bg-light border-y border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-10">
-          <p className="text-gray-400 text-xs uppercase tracking-[3px] font-semibold font-inter">Trusted by Karnataka's Leading Organizations</p>
+          <p className="text-gray-400 text-xs uppercase tracking-[3px] font-semibold font-inter">Trusted by Indias's Leading Organizations</p>
         </AnimatedSection>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
           {clients.map(c => (
@@ -279,6 +284,42 @@ function TestimonialsSection() {
     </section>
   )
 }
+
+/* ── Stats Section ──────────────────────────── */
+function StatsSection() {
+  const stats = [
+    { num: '14+',     label: 'Years Experience' },
+    // { num: '100+',    label: 'Projects Completed' },
+    { num: '500+',    label: 'Workforce' },
+    { num: '50+',     label: 'Govt Projects' },
+    { num: '₹500Cr+', label: 'Project Value' },
+  ]
+
+  return (
+    <section className="py-20 lg:py-24  border-t border-b border-blue-brand">
+      <div className=" backdrop-blur-md ">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 divide-x-0 sm:divide-x divide-white/8">
+            {stats.map(({ num, label }, i) => (
+              <div
+                key={label}
+                className={`text-center text-black/100 py-3.5 sm:py-5 px-2 ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+              >
+                <Counter targetValue={num} duration={2000} />
+                <div className="text-black/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+
+
 
 /* ── CTA Banner ─────────────────────────────── */
 function CTABanner() {
@@ -357,7 +398,8 @@ export default function HomePage() {
         <WhyStrip />
         <ProjectsTeaser />
         <ClientsStrip />
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
+        <StatsSection />
         <CTABanner />
         <ContactSection />
       </main>

@@ -5,14 +5,24 @@ import { resolveMediaUrl } from '../../utils/media'
 export default function MediaChooser({ open, onClose, onSelect }) {
   const [media, setMedia] = useState([])
 
+  const loadMedia = () => {
+    api.get('/admin/cms/media').then(res => setMedia(res.data || [])).catch(() => setMedia([]))
+  }
+
   useEffect(() => {
     if (!open) return
-    let mounted = true
-    api.get('/admin/cms/media').then(res => {
-      if (mounted) setMedia(res.data || [])
-    }).catch(() => setMedia([]))
-    return () => (mounted = false)
+    loadMedia()
   }, [open])
+
+  const handleDelete = async (m) => {
+    if (!window.confirm('Delete this image? This cannot be undone.')) return
+    try {
+      await api.delete(`/admin/cms/media/${m.id}`)
+      setMedia(prev => prev.filter(item => item.id !== m.id))
+    } catch {
+      window.alert('Failed to delete image')
+    }
+  }
 
   if (!open) return null
 
@@ -27,7 +37,10 @@ export default function MediaChooser({ open, onClose, onSelect }) {
           {media.map(m => (
             <div key={m.id} className="border p-2 flex flex-col items-center">
               <img src={resolveMediaUrl(m.url)} alt={m.filename || ''} className="h-20 object-cover mb-2" />
-              <button className="text-sm bg-blue-500 text-white px-2 py-1 rounded" onClick={() => { onSelect(m); onClose(); }}>Select</button>
+              <div className="flex items-center gap-2">
+                <button className="text-sm bg-blue-500 text-white px-2 py-1 rounded" onClick={() => { onSelect(m); onClose(); }}>Select</button>
+                <button className="text-sm text-red-500" onClick={() => handleDelete(m)}>Delete</button>
+              </div>
             </div>
           ))}
         </div>

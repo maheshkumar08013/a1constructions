@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import api from '../../utils/api'
 import Counter from '../ui/Counter'
+import { resolveMediaUrl } from '../../utils/media'
 
 const defaultSlides = [
   {
@@ -29,7 +30,7 @@ const defaultSlides = [
 const INTERVAL = 6000
 
 const stats = [
-  { num:'12+',     label:'Years Experience' },
+  { num:'14+',     label:'Years Experience' },
   { num:'100+',    label:'Projects Completed' },
   { num:'500+',    label:'Workforce' },
   { num:'50+',     label:'Govt Projects' },
@@ -88,7 +89,7 @@ export default function HeroSlider() {
       {slides.map((s, i) => (
         <div key={i} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${i === current ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
           <img
-            src={s.image} alt=""
+            src={resolveMediaUrl(s.image)} alt=""
             className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-linear ${i === current ? 'scale-[1.06]' : 'scale-100'}`}
             loading={i === 0 ? 'eager' : 'lazy'}
           />
@@ -110,7 +111,7 @@ export default function HeroSlider() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 w-full">
           <div className="max-w-[520px] md:max-w-[560px] lg:max-w-[600px]">
 
-            <div className={`inline-flex items-center gap-2.5 border border-[#1DA1F2]/35 bg-[#1DA1F2]/10 backdrop-blur-sm rounded-sm px-4 py-1.5 mb-5 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className={`inline-flex items-center gap-2.5 border border-[#1DA1F2]/35 bg-[#000]/40 backdrop-blur-sm rounded-sm px-4 py-1.5 mb-5 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <span className="w-1.5 h-1.5 rounded-full bg-[#1DA1F2] animate-pulse flex-shrink-0" />
               <span className="text-[#1DA1F2] text-[11px] font-bold tracking-[2.5px] uppercase font-inter">{slide.eyebrow}</span>
             </div>
@@ -164,29 +165,28 @@ export default function HeroSlider() {
         ))}
       </div>
 
-      {/* Counter */}
+      {/* Counter
       <div className="absolute bottom-24 left-4 sm:left-8 z-40 hidden sm:block">
         <span className="text-white/30 text-[11px] font-mono tracking-widest">
           {String(current + 1).padStart(2,'0')} / {String(slides.length).padStart(2,'0')}
         </span>
-      </div>
+      </div> */}
     </section>
 
-    {/* Stats bar below banner */}
+    {/* Stats bar below banner
     <div className="bg-[#0d1420]/90 backdrop-blur-md border-t border-white/8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x-0 sm:divide-x divide-white/8">
-          {stats.map(({ num, label }, i) => (
-            <div key={label}
-              className={`text-center py-3.5 sm:py-5 px-2 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'} ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
-              style={{ transitionDelay:`${200 + i * 60}ms` }}>
-              <Counter targetValue={num} duration={2000} />
-              <div className="text-white/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
-            </div>
-          ))}
+      {stats.map(({ num, label }, i) => (
+  <div key={label}
+    className={`text-center py-3.5 sm:py-5 px-2 ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}>
+    <Counter targetValue={num} duration={2000} />
+    <div className="text-white/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">{label}</div>
+  </div>
+))}
         </div>
       </div>
-    </div>
+    </div> */}
     </>
   )
 }

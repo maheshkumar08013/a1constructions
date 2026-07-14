@@ -254,33 +254,56 @@ function CMSList({ title, queryKey, endpoint, fields, createLabel, listFn, initi
           {items.length === 0 ? (
             <div className="text-center py-16 text-gray-400">No {title.toLowerCase()} yet. Create one!</div>
           ) : (
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-100">
-                <tr>
-                  {fields.filter(f => f.list !== false).map(f => (
-                    <th key={f.name} className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">{f.label}</th>
-                  ))}
-                  <th className="px-5 py-3 text-right text-xs font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {items.map(item => (
-                  <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 border-b border-gray-100">
+                  <tr>
                     {fields.filter(f => f.list !== false).map(f => (
-                      <td key={f.name} className="px-5 py-3.5 text-gray-600 max-w-xs truncate">{item[f.name] || '—'}</td>
+                      <th key={f.name} className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">{f.label}</th>
                     ))}
-                    <td className="px-5 py-3.5 flex items-center justify-end gap-2">
-                      <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-blue-brand hover:bg-blue-brand/8 rounded transition-all">
-                        <Edit3 size={14} />
-                      </button>
-                      <button onClick={() => { if(window.confirm('Delete?')) deleteMutation.mutate(item.id) }} className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all">
-                        <Trash2 size={14} />
-                      </button>
-                    </td>
+                    <th className="sticky right-0 bg-gray-50 px-5 py-3 text-right text-xs font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {items.map(item => (
+                    <tr key={item.id} className="group hover:bg-gray-50/50 transition-colors">
+                      {fields.filter(f => f.list !== false).map(f => (
+                        <td key={f.name} className="px-5 py-3.5 text-gray-600 max-w-xs">
+                          {f.type === 'gallery' ? (
+                            parseGallery(item[f.name]).length ? (
+                              <div className="flex items-center gap-1.5">
+                                {parseGallery(item[f.name]).slice(0, 4).map((url, idx) => (
+                                  <img key={idx} src={url} alt="" className="w-9 h-9 rounded object-cover border border-gray-100 flex-shrink-0" />
+                                ))}
+                                {parseGallery(item[f.name]).length > 4 && (
+                                  <span className="text-xs text-gray-400">+{parseGallery(item[f.name]).length - 4}</span>
+                                )}
+                              </div>
+                            ) : '—'
+                          ) : f.type === 'file' || f.name === 'image' || f.name === 'featured_image' ? (
+                            item[f.name] ? (
+                              <img src={resolveMediaUrl(item[f.name])} alt="" className="w-9 h-9 rounded object-cover border border-gray-100" />
+                            ) : '—'
+                          ) : (
+                            <span className="truncate block">{item[f.name] || '—'}</span>
+                          )}
+                        </td>
+                      ))}
+                      <td className="sticky right-0 bg-white group-hover:bg-gray-50/50 px-5 py-3.5">
+                        <div className="flex items-center justify-end gap-2">
+                          <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-blue-brand hover:bg-blue-brand/8 rounded transition-all">
+                            <Edit3 size={14} />
+                          </button>
+                          <button onClick={() => { if(window.confirm('Delete?')) deleteMutation.mutate(item.id) }} className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all">
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       )}
@@ -511,8 +534,8 @@ export default function AdminPage() {
                   { name: 'category', label: 'Category', type: 'select', options: ['Government','Healthcare','Education','Railway','Industrial','Urban Development','Commercial'] },
                   { name: 'status', label: 'Status', type: 'select', options: ['Upcoming','Ongoing','Completed'] },
                   { name: 'location', label: 'Location' },
-                  { name: 'desc', label: 'Description', type: 'textarea' },
-                  { name: 'content', label: 'Project Content', type: 'textarea' },
+                  // { name: 'desc', label: 'Description', type: 'textarea' },
+                  // { name: 'content', label: 'Project Content', type: 'textarea' },
                   { name: 'image', label: 'Image URL' },
                   { name: 'gallery', label: 'Gallery Images', type: 'gallery' },
                   { name: 'year', label: 'Year' },

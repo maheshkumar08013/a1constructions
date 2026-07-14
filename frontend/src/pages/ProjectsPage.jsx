@@ -9,7 +9,7 @@ import api from '../utils/api'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { resolveMediaUrl } from '../utils/media'
 
-const STATUSES = ['All', 'Upcoming', 'Ongoing', 'Completed']
+const STATUSES = ['All', 'Completed', 'Ongoing' ]
 
 const STATUS_STYLES = {
   Upcoming: 'bg-amber-500',
@@ -18,7 +18,6 @@ const STATUS_STYLES = {
 }
 
 export default function ProjectsPage() {
-  const [active, setActive] = useState('All')
   const [activeStatus, setActiveStatus] = useState('All')
 
   const { data: list = [] } = useQuery({
@@ -27,10 +26,7 @@ export default function ProjectsPage() {
     retry:1
   })
 
-  const cats = ['All', ...Array.from(new Set(list.map(p => p.category).filter(Boolean)))]
-  const filtered = list
-    .filter(p => active === 'All' || p.category === active)
-    .filter(p => activeStatus === 'All' || p.status === activeStatus)
+  const filtered = list.filter(p => activeStatus === 'All' || p.status === activeStatus)
 
   return (
     <div className="min-h-screen bg-white">
@@ -46,23 +42,6 @@ export default function ProjectsPage() {
       {/* Filter + Grid */}
       <section className="py-16 lg:py-24 bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Category filter tabs */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {cats.map(c => (
-              <button
-                key={c}
-                onClick={() => setActive(c)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
-                  active === c
-                    ? 'bg-blue-brand text-white shadow-md'
-                    : 'bg-white text-gray-500 border border-gray-200 hover:border-blue-brand hover:text-blue-brand'
-                }`}
-              >
-                {c} {c === 'All' ? `(${list.length})` : ''}
-              </button>
-            ))}
-          </div>
 
           {/* Status filter tabs */}
           <div className="flex flex-wrap gap-2 mb-10">

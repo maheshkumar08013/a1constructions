@@ -14,6 +14,8 @@ export default function Counter({ targetValue, duration = 2000, prefix = '', suf
 
   const numericTarget = extractNumber(targetValue)
 
+  // Intersection observer to start animation once, when element first enters viewport.
+  // This is the ONLY trigger — nothing external (like a slider) can affect it.
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -58,21 +60,21 @@ export default function Counter({ targetValue, duration = 2000, prefix = '', suf
 
   // Format the display value
   let displayValue = count.toString()
-  
-  // Add formatting for large numbers
+
   if (numericTarget >= 1000) {
     if (targetValue.toString().includes('Cr')) {
       displayValue = `${count}Cr`
     }
   }
 
-  // Add the suffix
   if (targetValue.toString().includes('+')) {
     displayValue += '+'
   }
 
   return (
-    <div ref={elementRef} className="font-montserrat font-black text-white text-xl sm:text-[22px] leading-none">
+    <div
+      ref={elementRef}
+      className="font-montserrat text-black text-xl sm:text-[22px] leading-none">
       {prefix}{displayValue}{suffix}
     </div>
   )

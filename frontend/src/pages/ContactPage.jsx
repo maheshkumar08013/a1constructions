@@ -151,17 +151,18 @@ export default function ContactPage() {
                 {/* Map embed */}
                 <div className="bg-navy rounded-xl overflow-hidden h-44">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.5!2d77.5!3d12.98!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sNagarabhavi%2C+Bangalore!5e0!3m2!1sen!2sin!4v1"
-                    className="w-full h-full opacity-70"
-                    loading="lazy"
-                    title="A1 Construction Office Location"
-                    style={{ border:0 }}
-                    allowFullScreen
-                  />
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d615.0798392808252!2d77.51231587691987!3d12.98024850240866!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d0005ece8ab%3A0xdceb8f59965334ec!2sA1%20Construction!5e1!3m2!1sen!2sin!4v1783916745924!5m2!1sen!2sin"
+    className="w-full h-full opacity-100"
+    loading="lazy"
+    title="A1 Construction Office Location"
+    style={{ border: 0 }}
+    allowFullScreen
+    referrerPolicy="strict-origin-when-cross-origin"
+  />
                 </div>
 
                 {/* Quick reach */}
-                <div className="bg-blue-brand rounded-xl p-5 text-center">
+                <div className="bg-blue-brand rounded-xl p-5 text-center mt-5">
                   <p className="text-white/80 text-xs mb-2">For urgent enquiries, call us directly</p>
                   <a href="tel:+919845370474" className="font-montserrat font-black text-white text-xl hover:text-white/80 transition-colors">
                     +91 9845370474

@@ -157,18 +157,17 @@ export function ContactSection() {
               ))}
             </div>
 
-            <div className="bg-navy rounded-xl px-6 py-10 sm:px-8 sm:py-12 text-center">
-              <div className="text-4xl mb-4">📍</div>
-              <p className="text-white/55 text-sm leading-relaxed">Nagarabhavi 2nd Stage, Bangalore – 560072</p>
-              <a
-                href="https://maps.google.com/?q=Nagarabhavi+2nd+Stage+Bangalore"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-5 text-blue-brand text-sm font-semibold hover:text-white transition-colors"
-              >
-                Open in Google Maps
-              </a>
-            </div>
+<div className="rounded-xl  ">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d615.0798392808252!2d77.51231587691987!3d12.98024850240866!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d0005ece8ab%3A0xdceb8f59965334ec!2sA1%20Construction!5e1!3m2!1sen!2sin!4v1783916745924!5m2!1sen!2sin"
+    className="w-full h-[200px] opacity-100"
+    loading="lazy"
+    title="A1 Construction Office Location"
+    style={{ border: 0 }}
+    allowFullScreen
+    referrerPolicy="strict-origin-when-cross-origin"
+  />
+</div>
           </AnimatedSection>
         </div>
       </div>

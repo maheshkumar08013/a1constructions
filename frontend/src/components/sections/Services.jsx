@@ -26,8 +26,8 @@ function ServiceCard({ service, delay }) {
       <div className="w-11 h-11 bg-blue-brand/8 rounded-md flex items-center justify-center text-xl mb-4">
         {service.icon}
       </div>
-      <h3 className="font-poppins font-semibold text-navy text-sm mb-2 leading-snug">{service.name}</h3>
-      <p className="text-gray-400 text-[13px] leading-relaxed">{service.desc}</p>
+      <h3 className="font-poppins font-semibold text-white text-sm mb-2 leading-snug">{service.name}</h3>
+      <p className="text-white-400 text-[13px] leading-relaxed">{service.desc}</p>
     </div>
   )
 }

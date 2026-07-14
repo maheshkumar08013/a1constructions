@@ -30,7 +30,7 @@ function crudRoutes(table, fields) {
     try {
       const availableFields = await getAvailableFields()
       const vals = fields.reduce((acc, f) => {
-        if (availableFields.has(f)) acc[f] = req.body[f] ?? null
+        if (availableFields.has(f) && req.body[f] !== undefined) acc[f] = req.body[f]
         return acc
       }, {})
       const cols = Object.keys(vals).map(quoteIdentifier).join(', ')

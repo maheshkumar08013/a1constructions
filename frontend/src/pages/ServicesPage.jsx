@@ -6,6 +6,7 @@ import PageHero from '../components/ui/PageHero'
 import { AnimatedSection, SectionLabel, SectionTitle, SectionRule } from '../components/ui/SectionHeader'
 import { useQuery } from '@tanstack/react-query'
 import api from '../utils/api'
+import { resolveMediaUrl } from '../utils/media'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
 const defaultServices = [
@@ -97,7 +98,7 @@ export default function ServicesPage() {
       <div className="bg-light rounded-2xl overflow-hidden border border-gray-200 grid grid-cols-1 lg:grid-cols-2">
         {service.image && (
           <div className="h-56 lg:h-auto">
-            <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
+            <img src={resolveMediaUrl(service.image)} alt={service.name} className="w-full h-full object-cover" />
           </div>
         )}
         <div className="p-8">
@@ -188,9 +189,9 @@ export default function ServicesPage() {
             {process.map((p, i) => (
               <AnimatedSection key={p.step}>
                 <div className="relative border border-white/8 rounded-xl p-6 hover:bg-white/4 hover:border-blue-brand/30 transition-all duration-200">
-                  <div className="text-blue-brand/30 font-montserrat font-black text-5xl leading-none mb-4 select-none">{p.step}</div>
+                  <div className="text-blue-brand/90 font-montserrat font-black text-5xl leading-none mb-4 select-none">{p.step}</div>
                   <h3 className="font-poppins font-semibold text-white text-sm mb-2">{p.title}</h3>
-                  <p className="text-white/38 text-xs leading-relaxed">{p.desc}</p>
+                  <p className="text-white/80 text-xs leading-relaxed">{p.desc}</p>
                   {i < process.length - 1 && (
                     <div className="hidden lg:block absolute top-8 -right-3 text-blue-brand/25 text-lg">→</div>
                   )}

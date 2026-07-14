@@ -37,10 +37,10 @@ export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage })
         {/* Breadcrumb */}
         {breadcrumbs.length > 0 && (
           <nav className="flex items-center gap-1.5 mb-5 flex-wrap">
-            <Link to="/" className="text-navy/40 text-xs font-inter hover:text-blue-brand transition-colors">Home</Link>
+            <Link to="/" className="text-white/90 text-xs font-inter hover:text-blue-brand transition-colors">Home</Link>
             {breadcrumbs.map(({ label, to }, i) => (
               <React.Fragment key={label}>
-                <ChevronRight size={11} className="text-navy/20" />
+                <ChevronRight size={11} className="text-navy/80" />
                 {to ? (
                   <Link to={to} className="text-navy/40 text-xs font-inter hover:text-blue-brand transition-colors">{label}</Link>
                 ) : (
@@ -61,7 +61,7 @@ export default function PageHero({ title, subtitle, breadcrumbs = [], bgImage })
 
         {/* Subtitle */}
         {subtitle && (
-          <p className="text-gray-500 text-base sm:text-lg leading-relaxed max-w-xl">{subtitle}</p>
+          <p className="text-black text-base sm:text-lg leading-relaxed max-w-xl">{subtitle}</p>
         )}
       </div>
     </section>

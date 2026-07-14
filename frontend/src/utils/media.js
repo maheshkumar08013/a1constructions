@@ -4,7 +4,7 @@ function getUploadBase() {
   const apiBase = getApiBaseURL()
 
   if (import.meta.env.DEV) {
-    return import.meta.env.VITE_UPLOAD_BASE_URL || 'http://localhost:5000'
+    return import.meta.env.VITE_UPLOAD_BASE_URL || 'http://localhost:3000'
   }
 
   if (apiBase.startsWith('/')) {

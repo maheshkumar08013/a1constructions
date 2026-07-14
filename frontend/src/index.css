@@ -4,6 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Disable image dragging (all browsers) ───────────── */
+img, svg, video, picture {
+  -webkit-user-drag: none;     /* Chrome, Safari, Edge */
+  -khtml-user-drag: none;      /* older Konqueror/Safari */
+  -moz-user-drag: none;        /* Firefox (no-op but harmless) */
+  user-drag: none;
+  -webkit-touch-callout: none; /* Safari iOS: disable long-press save/copy menu */
+  pointer-events: auto;        /* keep clicks/links working */
+}
+
+/* ── Disable text selection (all browsers) ───────────── */
+body {
+  -webkit-user-select: none;   /* Chrome, Safari, Edge */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* old IE/Edge */
+  user-select: none;
+  -webkit-touch-callout: none; /* Safari iOS: disable long-press selection menu */
+}
+
+/* ── Re-enable selection where users actually need it ── */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;

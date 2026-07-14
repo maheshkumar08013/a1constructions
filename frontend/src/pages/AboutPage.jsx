@@ -7,20 +7,25 @@ import { AnimatedSection, SectionLabel, SectionTitle, SectionRule } from '../com
 import { CheckCircle2, ArrowRight, Award, Users, Calendar, TrendingUp, Compass, Target, ShieldCheck, HardHat, Building2 } from 'lucide-react'
 import swrLogo from '../assets/images/clientlogo/south western railways.jpg'
 import bbmpLogo from '../assets/images/clientlogo/Bruhat_Bengaluru_Mahanagara_Palike_logo.jpg'
-import pwdLogo from '../assets/images/clientlogo/pwd-karnataka-logo.jpg'
+import pwdLogo from '../assets/images/clientlogo/pwd.png'
 import khbLogo from '../assets/images/clientlogo/karnataka housing board.png'
 import buLogo from '../assets/images/clientlogo/bangalore university.png'
 import kridlLogo from '../assets/images/clientlogo/kridl.png'
 import niasLogo from '../assets/images/clientlogo/National_Institute_of_Advanced_Studies_Logo.png'
+import kfO from '../assets/images/clientlogo/kof.png'
+import tscL from '../assets/images/clientlogo/tscl.png'
+import rvs from '../assets/images/clientlogo/rvs.png'
+import mdPhoto from '../assets/images/neelakanta-md.jpg'
 
 const milestones = [
-  { year:'2012', event:'A1 Construction founded in Bengaluru with a focus on government and institutional projects.' },
-  { year:'2014', event:'First major government contract - BBMP civil infrastructure works across Bengaluru.' },
-  { year:'2016', event:'Empanelled with South Western Railway for station infrastructure development.' },
-  { year:'2018', event:'Expanded to healthcare sector - first BBMP hospital project commenced.' },
-  { year:'2020', event:'Workforce grew to 300+, expanded operations across Karnataka.' },
-  { year:'2022', event:'Completed Dr Puneeth Rajkumar Hospital - a landmark healthcare project.' },
-  { year:'2024', event:'500+ workforce, Rs500Cr+ total project value, 100+ projects delivered.' },
+  { year:'2012', event:'A1 Construction was founded in Bengaluru with a vision to deliver high-quality government, institutional, and infrastructure projects.' },
+  { year:'2014', event:'Secured our first major Government contracts with South Western Railway, executing hospitals, staff quarters, and infrastructure development projects across Bengaluru.' },
+  { year:'2016', event:'Commenced major infrastructure works for the North Eastern Ladies Hostel under Bangalore University, Bengaluru.' },
+  { year:'2018', event:'Successfully executed several infrastructure projects and expanded our operations into the urban development sector across Karnataka, serving multiple government departments.' },
+  { year:'2020', event:'Expanded into the Healthcare and Educational Infrastructure sectors by undertaking major projects for BBMP.' },
+  { year:'2022', event:'Successfully completed major Government hospital projects, establishing a landmark in public healthcare infrastructure.' },
+  { year:'2024', event:'Commenced one of our most prestigious projects, "Assam Bhawan", in Bengaluru.' },
+  { year:'2026', event:'Today, with 14 years of excellence, A1 Construction has successfully delivered numerous prestigious government infrastructure projects, backed by a highly skilled workforce, uncompromising quality, and a commitment to engineering excellence' },
 ]
 
 const values = [
@@ -49,10 +54,10 @@ const certifications = [
 ]
 
 const stats = [
-  { Icon:Calendar, num:'12+', label:'Years Experience' },
+  { Icon:Calendar, num:'14+', label:'Years Experience' },
   { Icon:Award, num:'100+', label:'Projects Delivered' },
   { Icon:Users, num:'500+', label:'Skilled Workforce' },
-  { Icon:TrendingUp, num:'Rs500Cr+', label:'Total Project Value' },
+  { Icon:TrendingUp, num:'500Cr+', label:'Total Project Value' },
 ]
 
 const clients = [
@@ -63,6 +68,9 @@ const clients = [
   { name:'Bangalore University', logo:buLogo, alt:'Bangalore University' },
   { name:'KRIDL', logo:kridlLogo, alt:'Karnataka Renewable Energy Development Ltd' },
   { name:'NIAS', logo:niasLogo, alt:'National Institute of Advanced Studies' },
+    { name:'TSCL', logo:tscL, alt:'Tumkur Smart City Limited' },
+  { name:'KOF', logo:kfO, alt:'Karnataka Opportunity Fund' },
+  { name:'rvs', logo:rvs, alt:'Rural Development Society' },
 ]
 
 const philosophyPillars = [
@@ -189,9 +197,9 @@ export default function AboutPage() {
               <SectionTitle>Infrastructure Built on Integrity</SectionTitle>
               <SectionRule />
               <div className="space-y-4 text-gray-500 text-[15px] leading-relaxed">
-                <p>A1 Construction was founded in 2012 in Bengaluru with a clear mission: to deliver high-quality infrastructure that serves communities and stands the test of time. From humble beginnings with a small team of engineers, we have grown into one of Karnataka&apos;s trusted construction firms.</p>
-                <p>Our expertise spans institutional buildings, healthcare facilities, educational campuses, railway infrastructure, and urban development projects. We have had the privilege of working with leading government bodies including the BBMP, PWD Karnataka, South Western Railway, and Karnataka Housing Board.</p>
-                <p>Headquartered in Nagarabhavi, Bengaluru, our team of 500+ skilled professionals brings the same dedication to a Rs50 lakh civil works as to a Rs100 crore hospital project. Every project is personal to us because we understand that what we build becomes part of people&apos;s lives.</p>
+                <p>A1 Construction was founded in 2012 in Bengaluru with a clear mission: to deliver high-quality infrastructure that serves communities and stands the test of time. From humble beginnings with a small team of engineers, we have grown into one of India&apos;s trusted construction firms.</p>
+                <p>Our expertise spans institutional buildings, healthcare facilities, educational campuses, railway infrastructure, and urban development projects. We have had the privilege of working with leading government bodies including the  South Western Railway, Public Work Department ,  Karnataka Housing Board and BBMP.</p>
+                <p>Headquartered in Nagarabhavi, Bengaluru, our team of 500+ skilled professionals brings the same dedication to a Rs50 lakh civil works as to a Rs100 crore  project. Every project is personal to us because we understand that what we build becomes part of people&apos;s lives.</p>
               </div>
 
               <div className="mt-8 p-5 bg-light rounded-xl border-l-4 border-blue-brand">
@@ -219,6 +227,39 @@ export default function AboutPage() {
                 <div className="flex flex-col gap-1.5 mt-4">
                   <a href="tel:+919845370474" className="text-blue-brand text-sm hover:text-blue-dark transition-colors">+91 9845370474</a>
                   <a href="mailto:info@a1construction.co.in" className="text-blue-brand text-sm hover:text-blue-dark transition-colors">info@a1construction.co.in</a>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-center">
+            <AnimatedSection>
+              <div className="relative rounded-[28px] overflow-hidden bg-gradient-to-br from-navy to-[#1e2d47] aspect-[4/5] shadow-[0_18px_50px_rgba(15,23,42,0.12)]">
+                <img src={mdPhoto} alt="Hosur Neelakanta Reddy - Managing Partner, A1 Construction" className="w-full h-full object-cover" />
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection className="delay-150">
+              <SectionLabel>Leadership</SectionLabel>
+              <SectionTitle>Hosur Neelakanta Reddy</SectionTitle>
+              <p className="text-blue-brand text-sm font-semibold mt-1">Managing Partner</p>
+              <SectionRule />
+              <div className="space-y-4 text-gray-500 text-[15px] leading-relaxed">
+                <p>With over 20 years of experience in infrastructure and government construction across India, Hosur Neelakanta Reddy has led A1 Construction from its founding in 2012 to becoming a trusted delivery partner for government departments, PSUs, and institutional clients.</p>
+                <p>His leadership has guided the execution of over 100 projects spanning healthcare, education, railway, and urban infrastructure - grounded in engineering discipline, regulatory compliance, and a commitment to long-term community value.</p>
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-6 max-w-sm">
+                <div className="rounded-xl bg-light border border-gray-100 px-4 py-3">
+                  <div className="font-montserrat font-black text-navy text-xl">20+</div>
+                  <div className="text-gray-400 text-xs">Years Experience</div>
+                </div>
+                <div className="rounded-xl bg-light border border-gray-100 px-4 py-3">
+                  <div className="font-montserrat font-black text-navy text-xl">100+</div>
+                  <div className="text-gray-400 text-xs">Projects Led</div>
                 </div>
               </div>
             </AnimatedSection>
@@ -504,7 +545,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <SectionLabel>Our Journey</SectionLabel>
-            <SectionTitle center>12 Years of Infrastructure Excellence</SectionTitle>
+            <SectionTitle center>14 Years of Infrastructure Excellence</SectionTitle>
             <SectionRule center />
           </AnimatedSection>
 
@@ -531,7 +572,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-24 bg-light">
+      {/* <section className="py-20 lg:py-24 bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <SectionLabel>Leadership</SectionLabel>
@@ -557,7 +598,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -589,9 +630,9 @@ export default function AboutPage() {
               <Link to="/contact" className="inline-flex items-center gap-2 bg-blue-brand text-white px-7 py-3.5 rounded font-bold text-sm hover:bg-blue-dark transition-colors">
                 Get in Touch <ArrowRight size={14} />
               </Link>
-              <Link to="/projects" className="inline-flex items-center gap-2 border border-white/20 text-white px-7 py-3.5 rounded font-bold text-sm hover:bg-white/5 transition-colors">
+              {/* <Link to="/projects" className="inline-flex items-center gap-2 border border-white/20 text-white px-7 py-3.5 rounded font-bold text-sm hover:bg-white/5 transition-colors">
                 View Our Projects
-              </Link>
+              </Link> */}
             </div>
           </AnimatedSection>
         </div>

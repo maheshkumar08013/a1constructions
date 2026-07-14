@@ -79,19 +79,19 @@ export default function Navbar() {
 
             {/* Right CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <a href="tel:+919845370474" className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors ${
+              {/* <a href="tel:+919845370474" className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors ${
                 darkText ? 'text-navy/65 hover:text-blue-brand' : 'text-white/75 hover:text-white'
               }`}>
                 <Phone size={13} />
                 +91 98453 70474
-              </a>
-              <div className={`w-px h-4 ${darkText ? 'bg-gray-200' : 'bg-white/20'}`} />
-              {/* <Link
+              </a> */}
+              {/* <div className={`w-px h-4 ${darkText ? 'bg-gray-200' : 'bg-white/20'}`} /> */}
+               <Link
                 to="/contact"
                 className="bg-blue-brand hover:bg-blue-dark text-white px-5 py-2.5 rounded text-[13px] font-bold font-inter transition-colors shadow-sm"
               >
-                Get in Touch
-              </Link> */}
+                Quick Enquiry
+              </Link> 
             </div>
 
             {/* Mobile toggle */}
