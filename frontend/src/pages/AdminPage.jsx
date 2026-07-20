@@ -518,6 +518,9 @@ export default function AdminPage() {
                   { name: 'title', label: 'Title' },
                   { name: 'subtitle', label: 'Subtitle', type: 'textarea' },
                   { name: 'image', label: 'Image URL' },
+                  { name: 'position', label: 'Text Position', type: 'select', options: ['top-left','top-center','top-right','middle-left','middle-center','middle-right','bottom-left','bottom-center','bottom-right'] },
+                  { name: 'overlay_color', label: 'Overlay Color', type: 'color' },
+                  { name: 'overlay_opacity', label: 'Overlay Opacity (0-100)', type: 'number' },
                   { name: 'sort_order', label: 'Order', type: 'number' },
                 ]}
               />

@@ -12,22 +12,61 @@ const defaultSlides = [
     eyebrow: 'Est. 2012 · Bengaluru, Karnataka',
     title: 'Building Infrastructure That Shapes Communities',
     subtitle: 'Trusted partner for government, institutional and corporate projects across Karnataka and South India.',
+    position: 'middle-left',
+    overlay_color: '#0d1420',
+    overlay_opacity: 85,
   },
   {
     image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&q=85',
     eyebrow: 'Government · Healthcare · Education',
     title: 'Delivering Engineering Excellence Across South India',
     subtitle: 'End-to-end construction solutions — from project planning through to final handover.',
+    position: 'middle-left',
+    overlay_color: '#0d1420',
+    overlay_opacity: 85,
   },
   {
     image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1920&q=85',
     eyebrow: 'Quality · Safety · Sustainability',
     title: 'Building National Assets, Enabling Economic Progress',
     subtitle: 'Proven track record of 100+ projects for government bodies, PSUs, and institutional clients.',
+    position: 'middle-left',
+    overlay_color: '#0d1420',
+    overlay_opacity: 85,
   },
 ]
 
 const INTERVAL = 6000
+
+// slide.position: '<top|middle|bottom>-<left|center|right>'
+const POSITION_LAYOUT = {
+  'top-left':      { vertical: 'justify-start', horizontal: 'justify-start', align: 'text-left',   bar: '',        barOrigin: 'origin-left',   btn: 'justify-start' },
+  'top-center':    { vertical: 'justify-start', horizontal: 'justify-center', align: 'text-center', bar: 'mx-auto', barOrigin: '',              btn: 'justify-center' },
+  'top-right':     { vertical: 'justify-start', horizontal: 'justify-end',   align: 'text-right',  bar: 'ml-auto',  barOrigin: 'origin-right',  btn: 'justify-end' },
+  'middle-left':   { vertical: 'justify-center', horizontal: 'justify-start', align: 'text-left',   bar: '',        barOrigin: 'origin-left',   btn: 'justify-start' },
+  'middle-center': { vertical: 'justify-center', horizontal: 'justify-center', align: 'text-center', bar: 'mx-auto', barOrigin: '',              btn: 'justify-center' },
+  'middle-right':  { vertical: 'justify-center', horizontal: 'justify-end',   align: 'text-right',  bar: 'ml-auto',  barOrigin: 'origin-right',  btn: 'justify-end' },
+  'bottom-left':   { vertical: 'justify-end',   horizontal: 'justify-start', align: 'text-left',   bar: '',        barOrigin: 'origin-left',   btn: 'justify-start' },
+  'bottom-center': { vertical: 'justify-end',   horizontal: 'justify-center', align: 'text-center', bar: 'mx-auto', barOrigin: '',              btn: 'justify-center' },
+  'bottom-right':  { vertical: 'justify-end',   horizontal: 'justify-end',   align: 'text-right',  bar: 'ml-auto',  barOrigin: 'origin-right',  btn: 'justify-end' },
+}
+
+const hexToRgb = (hex) => {
+  const clean = (hex || '#0d1420').replace('#', '')
+  const full = clean.length === 3 ? clean.split('').map(c => c + c).join('') : clean
+  const n = parseInt(full, 16)
+  return Number.isNaN(n) ? '13,20,32' : `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`
+}
+
+const buildOverlayGradient = (side, color, opacity) => {
+  const rgb = hexToRgb(color)
+  const a = Math.min(100, Math.max(0, opacity ?? 85)) / 100
+  if (side === 'center') {
+    return `linear-gradient(90deg, rgba(${rgb},0) 0%, rgba(${rgb},${a}) 30%, rgba(${rgb},${a}) 70%, rgba(${rgb},0) 100%)`
+  }
+  const angle = side === 'right' ? 260 : 100
+  return `linear-gradient(${angle}deg, rgba(${rgb},${a}) 0%, rgba(${rgb},${(a * 0.87).toFixed(2)}) 38%, rgba(${rgb},0) 72%)`
+}
 
 const stats = [
   { num:'14+',     label:'Years Experience' },
@@ -77,6 +116,10 @@ export default function HeroSlider() {
   }
 
   const slide = slides[current]
+  const layout = POSITION_LAYOUT[slide.position] || POSITION_LAYOUT['middle-left']
+  const side = slide.position?.endsWith('center') ? 'center' : slide.position?.endsWith('right') ? 'right' : 'left'
+  const overlayRgb = hexToRgb(slide.overlay_color)
+  const overlayAlpha = Math.min(100, Math.max(0, slide.overlay_opacity ?? 85)) / 100
 
   return (
     <>
@@ -96,20 +139,19 @@ export default function HeroSlider() {
         </div>
       ))}
 
-      {/* Overlay — left text zone only */}
-      <div className="absolute inset-0 z-20 pointer-events-none flex">
-        <div className="hidden md:block flex-shrink-0 relative" style={{ width:'min(52%, 640px)' }}>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0d1420]/95 via-[#0d1420]/88 to-transparent" />
-        </div>
-        <div className="md:hidden absolute inset-0 bg-[#0d1420]/72" />
+      {/* Overlay — scrim follows the text zone for the active slide's position */}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        <div className="hidden md:block absolute inset-0 transition-[background] duration-500" style={{ background: buildOverlayGradient(side, slide.overlay_color, slide.overlay_opacity) }} />
+        <div className="md:hidden absolute inset-0 transition-[background] duration-500" style={{ background: `rgba(${overlayRgb}, ${(overlayAlpha * 0.85).toFixed(2)})` }} />
       </div>
       {/* Bottom gradient for stats */}
       <div className="absolute bottom-0 left-0 right-0 z-20 h-32 bg-gradient-to-t from-[#0d1420]/95 to-transparent pointer-events-none" />
 
       {/* Text content */}
-      <div className="absolute inset-0 z-30 flex flex-col justify-center pt-[118px] sm:pt-[132px] lg:pt-[150px] pb-24 sm:pb-28">
+      <div className={`absolute inset-0 z-30 flex flex-col ${layout.vertical} pt-[118px] sm:pt-[132px] lg:pt-[150px] pb-24 sm:pb-28`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 w-full">
-          <div className="max-w-[520px] md:max-w-[560px] lg:max-w-[600px]">
+          <div className={`flex ${layout.horizontal}`}>
+          <div className={`max-w-[520px] md:max-w-[560px] lg:max-w-[600px] ${layout.align}`}>
 
             <div className={`inline-flex items-center gap-2.5 border border-[#1DA1F2]/35 bg-[#000]/40 backdrop-blur-sm rounded-sm px-4 py-1.5 mb-5 transition-all duration-500 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <span className="w-1.5 h-1.5 rounded-full bg-[#1DA1F2] animate-pulse flex-shrink-0" />
@@ -123,13 +165,13 @@ export default function HeroSlider() {
               {slide.title}
             </h1>
 
-            <div className={`w-12 h-[3px] bg-[#1DA1F2] mb-5 rounded-full transition-all duration-600 delay-100 origin-left ${textVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+            <div className={`w-12 h-[3px] bg-[#1DA1F2] mb-5 rounded-full transition-all duration-600 delay-100 ${layout.bar} ${layout.barOrigin} ${textVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-            <p className={`text-white/80 text-[14px] sm:text-[16px] leading-[1.75] mb-8 max-w-[440px] transition-all duration-600 delay-150 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className={`text-white/80 text-[14px] sm:text-[16px] leading-[1.75] mb-8 max-w-[440px] ${side === 'center' ? 'mx-auto' : side === 'right' ? 'ml-auto' : ''} transition-all duration-600 delay-150 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               {slide.subtitle}
             </p>
 
-            <div className={`flex flex-wrap gap-3 transition-all duration-600 delay-200 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+            <div className={`flex flex-wrap gap-3 ${layout.btn} transition-all duration-600 delay-200 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
               <Link
                 to="/projects"
                 className="inline-flex items-center gap-2 bg-[#1DA1F2] hover:bg-[#1a91d9] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded text-[13px] sm:text-sm font-bold font-inter transition-all duration-200 shadow-lg shadow-[#1DA1F2]/20"
@@ -143,6 +185,7 @@ export default function HeroSlider() {
                 Contact Us
               </Link>
             </div>
+          </div>
           </div>
         </div>
       </div>

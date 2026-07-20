@@ -153,6 +153,9 @@ async function migrate() {
   await ensureColumn('projects', 'content', 'LONGTEXT NULL AFTER `desc`')
   await ensureColumn('projects', 'gallery', 'LONGTEXT NULL AFTER content')
   await ensureColumn('projects', 'status', "VARCHAR(20) NOT NULL DEFAULT 'Completed' AFTER category")
+  await ensureColumn('slides', 'position', "VARCHAR(20) NOT NULL DEFAULT 'middle-left' AFTER image")
+  await ensureColumn('slides', 'overlay_color', "VARCHAR(7) NOT NULL DEFAULT '#0d1420' AFTER position")
+  await ensureColumn('slides', 'overlay_opacity', "TINYINT UNSIGNED NOT NULL DEFAULT 85 AFTER overlay_color")
 
   // Seed admin
   const [existing] = await conn.query('SELECT id FROM users WHERE email = ?', ['admin@a1construction.co.in'])

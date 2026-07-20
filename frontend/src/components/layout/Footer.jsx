@@ -12,9 +12,9 @@ const pageLinks = [
 ]
 
 const socialLinks = [
-  { Icon: Instagram, label: 'Instagram', href: '' },
-  { Icon: Linkedin, label: 'LinkedIn', href: '' },
-  { Icon: Facebook, label: 'Facebook', href: '' },
+  { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/a1con_2012/' },
+  { Icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/neelakanta-reddy-2522953aa' },
+  // { Icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/a1construction' },
   // { Icon: Youtube, label: 'YouTube', href: '' },
 ]
 

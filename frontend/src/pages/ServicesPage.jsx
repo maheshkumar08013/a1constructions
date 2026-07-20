@@ -81,6 +81,16 @@ const defaultServices = [
     details:['Pre-construction planning','Contractor coordination','Quality audits and reporting','Cost and schedule management','Handover documentation'],
     image:projectManagement
   },
+  {
+    id:11, icon:'🏟', name:'Sports Complex',
+    desc:'Stadiums, indoor arenas, and sports infrastructure built to competition standards.',
+    details:['Multi-purpose sports stadiums','Indoor sports arenas','Synthetic and natural turf grounds','Swimming pool construction','Spectator stands and amenities'],
+  },
+  {
+    id:12, icon:'🏠', name:'Residential Building',
+    desc:'Apartments, villas, and gated communities built for comfort and durability.',
+    details:['Apartment and villa complexes','Gated community development','Individual bungalow construction','Amenities and clubhouse blocks','Vaastu-compliant planning'],
+  },
 ]
 
 const process = [
@@ -152,7 +162,7 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mb-12">
             <SectionLabel>What We Build</SectionLabel>
-            <SectionTitle>10 Core Service Areas</SectionTitle>
+            <SectionTitle>12 Core Service Areas</SectionTitle>
             <SectionRule />
             <p className="text-gray-500 text-[15px] max-w-xl">Click any service to learn more about our capabilities and approach.</p>
           </AnimatedSection>

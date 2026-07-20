@@ -49,15 +49,15 @@ const certifications = [
   'Empanelled with BBMP',
   'South Western Railway Approved Contractor',
   'Karnataka Housing Board Empanelled',
-  'ISO 9001 Quality Management',
+  // 'ISO 9001 Quality Management',
   'MSME Registered Enterprise',
 ]
 
 const stats = [
   { Icon:Calendar, num:'14+', label:'Years Experience' },
-  { Icon:Award, num:'100+', label:'Projects Delivered' },
-  { Icon:Users, num:'500+', label:'Skilled Workforce' },
-  { Icon:TrendingUp, num:'500Cr+', label:'Total Project Value' },
+  { Icon:Award, num:'50+', label:'Projects Delivered' },
+  { Icon:Users, num:'50+', label:'Skilled Workforce' },
+  { Icon:TrendingUp, num:'200Cr+', label:'Total Project Value' },
 ]
 
 const clients = [
@@ -198,7 +198,7 @@ export default function AboutPage() {
               <SectionRule />
               <div className="space-y-4 text-gray-500 text-[15px] leading-relaxed">
                 <p>A1 Construction was founded in 2012 in Bengaluru with a clear mission: to deliver high-quality infrastructure that serves communities and stands the test of time. From humble beginnings with a small team of engineers, we have grown into one of India&apos;s trusted construction firms.</p>
-                <p>Our expertise spans institutional buildings, healthcare facilities, educational campuses, railway infrastructure, and urban development projects. We have had the privilege of working with leading government bodies including the  South Western Railway, Public Work Department ,  Karnataka Housing Board and BBMP.</p>
+                <p>Our expertise spans institutional buildings, healthcare facilities, educational campuses, railway infrastructure, and urban development projects. We have had the privilege of working with leading government bodies including the  South Western Railway, Public Work Department ,  Karnataka Housing Board ,BBMP and Smart City.</p>
                 <p>Headquartered in Nagarabhavi, Bengaluru, our team of 500+ skilled professionals brings the same dedication to a Rs50 lakh civil works as to a Rs100 crore  project. Every project is personal to us because we understand that what we build becomes part of people&apos;s lives.</p>
               </div>
 
@@ -239,26 +239,26 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-center">
             <AnimatedSection>
               <div className="relative rounded-[28px] overflow-hidden bg-gradient-to-br from-navy to-[#1e2d47] aspect-[4/5] shadow-[0_18px_50px_rgba(15,23,42,0.12)]">
-                <img src={mdPhoto} alt="Hosur Neelakanta Reddy - Managing Partner, A1 Construction" className="w-full h-full object-cover" />
+                <img src={mdPhoto} alt="Neelakanta Reddy - Managing Partner, A1 Construction" className="w-full h-full object-cover" />
               </div>
             </AnimatedSection>
 
             <AnimatedSection className="delay-150">
               <SectionLabel>Leadership</SectionLabel>
-              <SectionTitle>Hosur Neelakanta Reddy</SectionTitle>
+              <SectionTitle>Neelakanta Reddy</SectionTitle>
               <p className="text-blue-brand text-sm font-semibold mt-1">Managing Partner</p>
               <SectionRule />
               <div className="space-y-4 text-gray-500 text-[15px] leading-relaxed">
-                <p>With over 20 years of experience in infrastructure and government construction across India, Hosur Neelakanta Reddy has led A1 Construction from its founding in 2012 to becoming a trusted delivery partner for government departments, PSUs, and institutional clients.</p>
+                <p>With over 15 years of experience in infrastructure and government construction across India, Neelakanta Reddy has led A1 Construction from its founding in 2012 to becoming a trusted delivery partner for government departments, PSUs, and institutional clients.</p>
                 <p>His leadership has guided the execution of over 100 projects spanning healthcare, education, railway, and urban infrastructure - grounded in engineering discipline, regulatory compliance, and a commitment to long-term community value.</p>
               </div>
               <div className="grid grid-cols-2 gap-3 mt-6 max-w-sm">
                 <div className="rounded-xl bg-light border border-gray-100 px-4 py-3">
-                  <div className="font-poppins font-black text-navy text-xl">20+</div>
+                  <div className="font-poppins font-black text-navy text-xl">15+</div>
                   <div className="text-gray-400 text-xs">Years Experience</div>
                 </div>
                 <div className="rounded-xl bg-light border border-gray-100 px-4 py-3">
-                  <div className="font-poppins font-black text-navy text-xl">100+</div>
+                  <div className="font-poppins font-black text-navy text-xl">50+</div>
                   <div className="text-gray-400 text-xs">Projects Led</div>
                 </div>
               </div>

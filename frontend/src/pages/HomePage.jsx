@@ -279,9 +279,9 @@ function StatsSection() {
   const stats = [
     { num: '14+',     label: 'Years Experience' },
     // { num: '100+',    label: 'Projects Completed' },
-    { num: '500+',    label: 'Workforce' },
+    { num: '50+',    label: 'Workforce' },
     { num: '50+',     label: 'Govt Projects' },
-    { num: '₹500Cr+', label: 'Project Value' },
+    { num: '₹200Cr+', label: 'Project Value' },
   ]
 
   return (
