@@ -61,10 +61,8 @@ export default function Counter({ targetValue, duration = 2000, prefix = '', suf
   // Format the display value
   let displayValue = count.toString()
 
-  if (numericTarget >= 1000) {
-    if (targetValue.toString().includes('Cr')) {
-      displayValue = `${count}Cr`
-    }
+  if (targetValue.toString().includes('Cr')) {
+    displayValue = `${count}Cr`
   }
 
   if (targetValue.toString().includes('+')) {

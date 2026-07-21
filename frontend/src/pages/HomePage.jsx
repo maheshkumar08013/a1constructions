@@ -281,7 +281,7 @@ function StatsSection() {
     // { num: '100+',    label: 'Projects Completed' },
     { num: '50+',    label: 'Workforce' },
     { num: '50+',     label: 'Govt Projects' },
-    { num: '₹200Cr+', label: 'Project Value' },
+    { num: '200Cr+', label: 'Project Value' },
   ]
 
   return (
@@ -292,8 +292,12 @@ function StatsSection() {
             {stats.map(({ num, label }, i) => (
               <div
                 key={label}
-                className={`text-center text-black/100 py-3.5 sm:py-5 px-2 ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+                className={`text-center text-black/100 py-3.5 sm:py-5 px-2`}
               >
+                {/* <div
+                key={label}
+                className={`text-center text-black/100 py-3.5 sm:py-5 px-2 ${i === stats.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+              > */}
                 <Counter targetValue={num} duration={2000} />
                 <div className="text-black/60 text-[9px] sm:text-[10px] uppercase tracking-widest mt-1 font-inter">
                   {label}
